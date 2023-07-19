@@ -23,7 +23,7 @@ extension ChildrenView {
                     name: "Charlie",
                     age: 8,
                     ageUnits: .months,
-                    note: "This is another note"
+                    note: ""
                 )
             ]
         }

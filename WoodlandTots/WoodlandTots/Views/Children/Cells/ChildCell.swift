@@ -23,6 +23,9 @@ struct ChildCell: View {
                 Text(item.note)
                     .frame(maxWidth: .infinity, alignment: .leading)
                     .padding(.top, 5)
+                    .visibility(item.note.isEmpty ? .gone : .visible)
+                
+                
             }
             .padding(15)
         }
