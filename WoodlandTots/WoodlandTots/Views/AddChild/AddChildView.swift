@@ -9,14 +9,18 @@ import SwiftUI
 
 struct AddChildView: View {
 
-    @State private var selection: String? = nil
+    @Environment(\.dismiss) private var dismiss
     @ObservedObject var viewModel: ViewModel
     
     var body: some View {
         return NavigationStack() {
             VStack() {
                 
-                
+                Button {
+                    dismiss()
+                } label: {
+                    Text("Test Me")
+                }
             }
             .navigationTitle("Add Child")
         }
