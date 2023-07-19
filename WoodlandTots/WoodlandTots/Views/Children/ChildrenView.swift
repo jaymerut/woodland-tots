@@ -33,7 +33,7 @@ struct ChildrenView: View {
             .navigationTitle("Children")
             .toolbar {
                 NavigationLink {
-                    ChildrenView(viewModel: .init())
+                    AddChildView(viewModel: .init())
                 } label: {
                     Image("add")
                         .renderingMode(.template)
