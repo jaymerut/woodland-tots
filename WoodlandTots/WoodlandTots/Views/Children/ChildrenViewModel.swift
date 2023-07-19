@@ -13,8 +13,18 @@ extension ChildrenView {
         
         init() {
             self.children = [
-                .init(name: "Test 1"),
-                .init(name: "Test 2")
+                .init(
+                    name: "Tim",
+                    age: 2,
+                    ageUnits: .years,
+                    note: "This is a note"
+                ),
+                .init(
+                    name: "Charlie",
+                    age: 8,
+                    ageUnits: .months,
+                    note: "This is another note"
+                )
             ]
         }
     }

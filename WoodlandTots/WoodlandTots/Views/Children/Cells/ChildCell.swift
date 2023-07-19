@@ -13,8 +13,16 @@ struct ChildCell: View {
     var body: some View {
         ZStack {
             VStack(alignment: .leading) {
-                Text(item.name)
+                HStack() {
+                    Text(item.name)
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                    Text(item.ageString)
+                        .frame(maxWidth: .infinity, alignment: .trailing)
+                }
+                
+                Text(item.note)
                     .frame(maxWidth: .infinity, alignment: .leading)
+                    .padding(.top, 5)
             }
             .padding(15)
         }
@@ -24,6 +32,11 @@ struct ChildCell: View {
 
 struct ChildCell_Previews: PreviewProvider {
     static var previews: some View {
-        ChildCell(item: .init(name: "Test"))
+        ChildCell(item: .init(
+            name: "Test 1",
+            age: 2,
+            ageUnits: .years,
+            note: "This is a note"
+        ))
     }
 }
