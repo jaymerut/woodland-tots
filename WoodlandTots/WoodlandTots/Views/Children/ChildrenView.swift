@@ -9,23 +9,39 @@ import SwiftUI
 
 struct ChildrenView: View {
 
+    @State private var selection: String? = nil
     @ObservedObject var viewModel: ViewModel
     
     var body: some View {
-        return VStack() {
-            List {
-                ForEach(viewModel.children) { item in
-                    Section {
-                        ChildCell(item: item)
-                            .listRowInsets(.init(top: 5, leading: 0, bottom: 5, trailing: 0))
-                            .listRowSeparator(.hidden)
-                            .background(.blue)
+        return NavigationStack() {
+            VStack() {
+                
+                List {
+                    ForEach(viewModel.children) { item in
+                        Section {
+                            ChildCell(item: item)
+                                .listRowInsets(.init(top: 5, leading: 0, bottom: 5, trailing: 0))
+                                .listRowSeparator(.hidden)
+                                .background(.blue)
+                        }
+                        .cornerRadius(8)
                     }
-                    .cornerRadius(8)
                 }
+                .listStyle(PlainListStyle())
+                .padding(.top, 10)
             }
-            .listStyle(PlainListStyle())
-            .padding(.top, 10)
+            .navigationTitle("Children")
+            .toolbar {
+                NavigationLink {
+                    ChildrenView(viewModel: .init())
+                } label: {
+                    Image("add")
+                        .renderingMode(.template)
+                        .foregroundColor(.init(hex: 0x097969))
+                }
+                .buttonStyle(.automatic)
+                
+            }
         }
         .padding(.top, 30)
         .padding(.horizontal, 20)
