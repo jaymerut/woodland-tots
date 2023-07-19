@@ -36,6 +36,7 @@ struct ScheduleView: View {
                         )
                 }
             }
+            .navigationTitle("Schedule")
         }
     }
 }
