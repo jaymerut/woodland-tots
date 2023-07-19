@@ -29,11 +29,17 @@ struct CalendarView<DateView>: View where DateView: View {
     }
 
     var body: some View {
-        ScrollView(.vertical, showsIndicators: false) {
-            VStack {
+        VStack {
+            PageView {
                 ForEach(months, id: \.self) { month in
                     MonthView(month: month, content: self.content)
                 }
+            }
+        }
+        
+        ScrollView(.vertical, showsIndicators: false) {
+            VStack {
+                
             }
         }
     }

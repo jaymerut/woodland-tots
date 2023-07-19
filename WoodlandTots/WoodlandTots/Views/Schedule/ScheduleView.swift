@@ -20,16 +20,18 @@ struct ScheduleView: View {
     
     var body: some View {
         return NavigationStack() {
-            CalendarView(interval: year) { date in
-                Text("30")
-                    .hidden()
-                    .padding(8)
-                    .background(Color.blue)
-                    .clipShape(Circle())
-                    .padding(.vertical, 4)
-                    .overlay(
-                        Text(String(self.calendar.component(.day, from: date)))
-                    )
+            VStack {
+                CalendarView(interval: year) { date in
+                    Text("30")
+                        .hidden()
+                        .padding(8)
+                        .background(Color.blue)
+                        .clipShape(Circle())
+                        .padding(.vertical, 4)
+                        .overlay(
+                            Text(String(self.calendar.component(.day, from: date)))
+                        )
+                }
             }
         }
         .padding(.horizontal, 20)
