@@ -34,7 +34,7 @@ class ChildItem: ObservableObject, Identifiable {
     }
 }
 
-enum AgeType {
-    case months
-    case years
+enum AgeType: String {
+    case months = "Months"
+    case years = "Years"
 }

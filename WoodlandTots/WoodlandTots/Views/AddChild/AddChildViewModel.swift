@@ -9,6 +9,10 @@ import Foundation
 
 extension AddChildView {
     class ViewModel: ObservableObject {
+        var ageTypes: [String] = [
+            AgeType.years.rawValue,
+            AgeType.months.rawValue
+        ]
         
         init() {
             
