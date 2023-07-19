@@ -12,7 +12,7 @@ struct TabBarView: View {
 
     var body: some View {
         return TabView(selection: $selectedTab) {
-            ContentView()
+            ChildrenView(viewModel: .init())
                 .tabItem {
                     Image(systemName: "globe")
                         .renderingMode(.template)

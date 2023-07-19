@@ -43,7 +43,6 @@ struct ChildrenView: View {
                 
             }
         }
-        .padding(.top, 30)
         .padding(.horizontal, 20)
     }
 }
