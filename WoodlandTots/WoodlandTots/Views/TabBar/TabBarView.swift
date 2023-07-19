@@ -12,7 +12,7 @@ struct TabBarView: View {
 
     var body: some View {
         return TabView(selection: $selectedTab) {
-            ContentView()
+            ChildrenView(viewModel: .init())
                 .tabItem {
                     Image(systemName: "globe")
                         .renderingMode(.template)
@@ -25,14 +25,14 @@ struct TabBarView: View {
                         .renderingMode(.template)
                     Text("Activities")
                 }
-                .tag(0)
+                .tag(1)
             ContentView()
                 .tabItem {
                     Image(systemName: "globe")
                         .renderingMode(.template)
                     Text("Schedule")
                 }
-                .tag(0)
+                .tag(2)
         }
     }
 }
