@@ -12,9 +12,25 @@ struct ScheduleView: View {
     @State private var selection: String? = nil
     @ObservedObject var viewModel: ViewModel
     
+    @Environment(\.calendar) var calendar
+
+    private var year: DateInterval {
+        calendar.dateInterval(of: .year, for: Date())!
+    }
+    
     var body: some View {
         return NavigationStack() {
-            
+            CalendarView(interval: year) { date in
+                Text("30")
+                    .hidden()
+                    .padding(8)
+                    .background(Color.blue)
+                    .clipShape(Circle())
+                    .padding(.vertical, 4)
+                    .overlay(
+                        Text(String(self.calendar.component(.day, from: date)))
+                    )
+            }
         }
         .padding(.horizontal, 20)
     }
