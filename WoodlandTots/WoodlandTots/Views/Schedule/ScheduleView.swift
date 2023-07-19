@@ -25,16 +25,18 @@ struct ScheduleView: View {
                     Text("30")
                         .hidden()
                         .padding(8)
-                        .background(Color.blue)
-                        .clipShape(Circle())
+                        .background(Color.green)
+                        .clipShape(RoundedRectangle(cornerRadius: 5))
                         .padding(.vertical, 4)
                         .overlay(
-                            Text(String(self.calendar.component(.day, from: date)))
+                            VStack {
+                                Text(String(self.calendar.component(.day, from: date)))
+                                    .fontWeight(.bold)
+                            }
                         )
                 }
             }
         }
-        .padding(.horizontal, 20)
     }
 }
 
