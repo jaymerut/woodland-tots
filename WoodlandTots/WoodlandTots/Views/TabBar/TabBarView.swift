@@ -26,7 +26,7 @@ struct TabBarView: View {
                     Text("Activities")
                 }
                 .tag(1)
-            ContentView()
+            ScheduleView(viewModel: .init())
                 .tabItem {
                     Image(systemName: "globe")
                         .renderingMode(.template)
