@@ -9,23 +9,31 @@ import Foundation
 
 extension ChildrenView {
     class ViewModel: ObservableObject {
-        var children: [ChildItem] = [ChildItem]()
+        @Published var children: [ChildItem] = [ChildItem]()
         
         init() {
-            self.children = [
-                .init(
-                    name: "Tim",
-                    age: 2,
-                    ageUnits: .years,
-                    note: "This is a note"
-                ),
-                .init(
-                    name: "Charlie",
-                    age: 8,
-                    ageUnits: .months,
-                    note: ""
-                )
-            ]
+            guard let childModels = SwiftAppDefaults.get(.childModels, entityType: [ChildModel].self) as? [ChildModel] else { return }
+            
+            self.children = self.convertChildModelsToChildItems(models: childModels)
+        }
+        
+        func convertChildItemTtoChildModels(models: [ChildItem]) -> [ChildModel] {
+            var result = [ChildModel]()
+            
+            for item in models {
+                result.append(.init(name: item.name, age: item.age, ageUnits: item.ageUnits, note: item.note))
+            }
+            
+            return result
+        }
+        func convertChildModelsToChildItems(models: [ChildModel]) -> [ChildItem] {
+            var result = [ChildItem]()
+            
+            for item in models {
+                result.append(.init(name: item.name, age: item.age, ageUnits: item.ageUnits, note: item.note))
+            }
+            
+            return result
         }
     }
 }
