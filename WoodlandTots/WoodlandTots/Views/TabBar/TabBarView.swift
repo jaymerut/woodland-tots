@@ -19,7 +19,7 @@ struct TabBarView: View {
                     Text("Children")
                 }
                 .tag(0)
-            ContentView()
+            ActivitiesView(viewModel: .init())
                 .tabItem {
                     Image(systemName: "globe")
                         .renderingMode(.template)

@@ -37,12 +37,6 @@ struct CalendarView<DateView>: View where DateView: View {
                     self.selection = months.firstIndex(where: { DateFormatter.month.string(from: $0) == DateFormatter.month.string(from: Date()) }) ?? 0
                 }
         }
-        
-        ScrollView(.vertical, showsIndicators: false) {
-            VStack {
-                
-            }
-        }
     }
 }
 
