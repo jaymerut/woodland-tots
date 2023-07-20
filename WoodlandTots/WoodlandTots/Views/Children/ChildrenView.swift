@@ -34,7 +34,12 @@ struct ChildrenView: View {
                                 .foregroundColor(.white)
                                 
                                 SwipeAction(systemImage: "trash.fill", backgroundColor: .red) {
-                                    print("Tapped!")
+                                    
+                                    if let index = self.viewModel.children.firstIndex(where: { $0.id == item.id }) {
+                                        self.viewModel.children.remove(at: Int(index.description)!)
+                                        SwiftAppDefaults.add(.childModels, self.viewModel.convertChildItemTtoChildModels(models: self.viewModel.children))
+                                    }
+                                    
                                 }
                                 .allowSwipeToTrigger(false)
                                 .foregroundColor(.white)
@@ -43,9 +48,6 @@ struct ChildrenView: View {
                         }
                         .cornerRadius(8)
                     }
-                    
-                    
-                    //.onDelete(perform: deleteItems(at:))
                 }
                 .listStyle(PlainListStyle())
                 .padding(.top, 10)
@@ -63,7 +65,6 @@ struct ChildrenView: View {
                 
             }
         }
-        //.padding(.horizontal, 20)
     }
     
     func deleteItems(at offsets: IndexSet) {
@@ -86,7 +87,7 @@ struct ChildrenView_Previews: PreviewProvider {
     
     static func getViewModel() -> ChildrenView.ViewModel {
         var viewModel = ChildrenView.ViewModel.init()
-        viewModel.children = [.init(name: "Test", age: 12, ageUnits: .months, note: "test")]
+        viewModel.children = [.init(id: "123", name: "Test", age: 12, ageUnits: .months, note: "test")]
         
         return viewModel
     }

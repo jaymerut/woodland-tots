@@ -42,6 +42,7 @@ struct ChildCell: View {
 struct ChildCell_Previews: PreviewProvider {
     static var previews: some View {
         ChildCell(item: .init(
+            id: "123",
             name: "Test 1",
             age: 2,
             ageUnits: .years,

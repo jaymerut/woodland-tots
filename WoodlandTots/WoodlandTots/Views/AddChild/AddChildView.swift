@@ -67,6 +67,7 @@ struct AddChildView: View {
                             
                             Button() {
                                 self.viewModel.delegate?.addedChild(child: ChildItem(
+                                    id: UUID.init().uuidString,
                                     name: $name.wrappedValue,
                                     age: Int($age.wrappedValue) ?? 0,
                                     ageUnits: AgeType(rawValue: $selectedAgeType.wrappedValue) ?? .months,
