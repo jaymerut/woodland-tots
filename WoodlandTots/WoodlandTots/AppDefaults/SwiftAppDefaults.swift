@@ -34,7 +34,6 @@ public class SwiftAppDefaults: SwiftAppDefaultsProtocol {
         }
     }
     
-    // MARK:- GET function
     public static func get<R: Decodable>(_ key: SwiftAppKeys, entityType: R.Type) -> Any? {
         if let data = UserDefaults.standard.object(forKey: key.rawValue) as? Data {
             if let decoded = try? JSONDecoder().decode(entityType, from: data) {

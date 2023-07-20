@@ -8,6 +8,8 @@
 import Foundation
 
 class ChildItem: ObservableObject, Identifiable {
+    
+    var id: String = ""
     var name: String = ""
     var age: Int = 0
     var ageUnits: AgeType = .years
@@ -26,7 +28,8 @@ class ChildItem: ObservableObject, Identifiable {
     }
     var note: String = ""
     
-    init(name: String, age: Int, ageUnits: AgeType, note: String) {
+    init(id: String, name: String, age: Int, ageUnits: AgeType, note: String) {
+        self.id = id
         self.name = name
         self.age = age
         self.ageUnits = ageUnits

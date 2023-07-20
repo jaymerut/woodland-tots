@@ -21,7 +21,7 @@ extension ChildrenView {
             var result = [ChildModel]()
             
             for item in models {
-                result.append(.init(name: item.name, age: item.age, ageUnits: item.ageUnits, note: item.note))
+                result.append(.init(id: item.id, name: item.name, age: item.age, ageUnits: item.ageUnits, note: item.note))
             }
             
             return result
@@ -30,7 +30,7 @@ extension ChildrenView {
             var result = [ChildItem]()
             
             for item in models {
-                result.append(.init(name: item.name, age: item.age, ageUnits: item.ageUnits, note: item.note))
+                result.append(.init(id: item.id, name: item.name, age: item.age, ageUnits: item.ageUnits, note: item.note))
             }
             
             return result
