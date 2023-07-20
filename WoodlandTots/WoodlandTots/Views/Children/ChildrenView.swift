@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import SwipeActions
 
 struct ChildrenView: View {
 
@@ -17,15 +18,30 @@ struct ChildrenView: View {
             VStack() {
                 
                 List {
+                    
                     ForEach(viewModel.children) { item in
                         Section {
-                            ChildCell(item: item)
-                                .listRowInsets(.init(top: 5, leading: 0, bottom: 5, trailing: 0))
-                                .listRowSeparator(.hidden)
-                                .background(.blue)
+                            SwipeView {
+                                ChildCell(item: item)
+                                    .listRowSeparator(.hidden)
+                                    .listRowInsets(.init(top: 5, leading: 0, bottom: 5, trailing: 0))
+                            } leadingActions: { _ in
+                            } trailingActions: { _ in
+                                SwipeAction("Edit") {
+                                    print("Tapped!")
+                                }
+                                .allowSwipeToTrigger(false)
+                                SwipeAction("Delete") {
+                                    print("Tapped!")
+                                }
+                                .allowSwipeToTrigger(false)
+                            }
                         }
                         .cornerRadius(8)
                     }
+                    
+                    
+                    //.onDelete(perform: deleteItems(at:))
                 }
                 .listStyle(PlainListStyle())
                 .padding(.top, 10)
@@ -43,7 +59,11 @@ struct ChildrenView: View {
                 
             }
         }
-        .padding(.horizontal, 20)
+        //.padding(.horizontal, 20)
+    }
+    
+    func deleteItems(at offsets: IndexSet) {
+        self.viewModel.children.remove(atOffsets: offsets)
     }
 }
 
@@ -55,7 +75,15 @@ extension ChildrenView: AddChildProtocol {
 }
 
 struct ChildrenView_Previews: PreviewProvider {
+    
     static var previews: some View {
-        ChildrenView(viewModel: .init())
+        ChildrenView(viewModel: self.getViewModel())
+    }
+    
+    static func getViewModel() -> ChildrenView.ViewModel {
+        var viewModel = ChildrenView.ViewModel.init()
+        viewModel.children = [.init(name: "Test", age: 12, ageUnits: .months, note: "test")]
+        
+        return viewModel
     }
 }
