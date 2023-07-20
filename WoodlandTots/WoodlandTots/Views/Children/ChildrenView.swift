@@ -27,14 +27,18 @@ struct ChildrenView: View {
                                     .listRowInsets(.init(top: 5, leading: 0, bottom: 5, trailing: 0))
                             } leadingActions: { _ in
                             } trailingActions: { _ in
-                                SwipeAction("Edit") {
+                                SwipeAction(systemImage: "square.and.pencil", backgroundColor: .green) {
                                     print("Tapped!")
                                 }
                                 .allowSwipeToTrigger(false)
-                                SwipeAction("Delete") {
+                                .foregroundColor(.white)
+                                
+                                SwipeAction(systemImage: "trash.fill", backgroundColor: .red) {
                                     print("Tapped!")
                                 }
                                 .allowSwipeToTrigger(false)
+                                .foregroundColor(.white)
+                                
                             }
                         }
                         .cornerRadius(8)
