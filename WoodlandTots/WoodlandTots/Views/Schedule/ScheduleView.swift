@@ -35,8 +35,11 @@ struct ScheduleView: View {
                             }
                         )
                 }
+                .background(Color.blue)
+                Spacer()
             }
             .navigationTitle("Schedule")
+            
         }
     }
 }
