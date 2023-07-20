@@ -33,7 +33,7 @@ struct ChildrenView: View {
             .navigationTitle("Children")
             .toolbar {
                 NavigationLink {
-                    AddChildView(viewModel: .init())
+                    AddChildView(viewModel: .init(delegate: self))
                 } label: {
                     Image("add")
                         .renderingMode(.template)
@@ -44,6 +44,12 @@ struct ChildrenView: View {
             }
         }
         .padding(.horizontal, 20)
+    }
+}
+
+extension ChildrenView: AddChildProtocol {
+    func addedChild(child: ChildItem) {
+        self.viewModel.children.append(child)
     }
 }
 

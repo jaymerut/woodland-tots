@@ -66,6 +66,12 @@ struct AddChildView: View {
                                 .frame(minHeight: 200)
                             
                             Button() {
+                                self.viewModel.delegate?.addedChild(child: ChildItem(
+                                    name: $name.wrappedValue,
+                                    age: Int($age.wrappedValue) ?? 0,
+                                    ageUnits: AgeType(rawValue: $selectedAgeType.wrappedValue) ?? .months,
+                                    note: $note.wrappedValue
+                                ))
                                 dismiss()
                             } label: {
                                 Text("Add Child")

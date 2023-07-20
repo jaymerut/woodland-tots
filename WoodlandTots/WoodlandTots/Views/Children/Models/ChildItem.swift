@@ -16,9 +16,9 @@ class ChildItem: ObservableObject, Identifiable {
             var ageSuffix = ""
             switch self.ageUnits {
             case .months:
-                ageSuffix = self.age > 1 ? "months" : "month"
+                ageSuffix = self.age == 1 ? "month" : "months"
             case .years:
-                ageSuffix = self.age > 1 ? "years" : "year"
+                ageSuffix = self.age == 1 ? "year" : "years"
             }
             
             return "\(self.age) \(ageSuffix) old"

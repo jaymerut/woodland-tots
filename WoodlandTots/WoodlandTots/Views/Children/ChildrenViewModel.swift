@@ -9,7 +9,7 @@ import Foundation
 
 extension ChildrenView {
     class ViewModel: ObservableObject {
-        var children: [ChildItem] = [ChildItem]()
+        @Published var children: [ChildItem] = [ChildItem]()
         
         init() {
             self.children = [

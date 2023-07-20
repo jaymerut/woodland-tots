@@ -13,9 +13,13 @@ extension AddChildView {
             AgeType.years.rawValue,
             AgeType.months.rawValue
         ]
+        var delegate: AddChildProtocol?
         
         init() {
             
+        }
+        init(delegate: AddChildProtocol) {
+            self.delegate = delegate
         }
     }
 }
