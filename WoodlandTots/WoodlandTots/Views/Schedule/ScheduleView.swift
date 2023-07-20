@@ -36,7 +36,7 @@ struct ScheduleView: View {
                         )
                 }
                 .background(Color.blue)
-                .frame(alignment: .topLeading)
+                Spacer()
             }
             .navigationTitle("Schedule")
             
