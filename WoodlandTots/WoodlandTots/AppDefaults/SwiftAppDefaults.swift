@@ -12,7 +12,7 @@ public enum SwiftAppKeys: String {
 }
 
 protocol SwiftAppDefaultsProtocol {
-    static func add(_ key: SwiftAppKeys, _ duration: Duration, _ object: Encodable)
+    static func add(_ key: SwiftAppKeys, _ object: Encodable)
     static func get<R: Decodable>(_ key: SwiftAppKeys, entityType: R.Type) -> Any?
 }
 
@@ -28,7 +28,7 @@ public class SwiftAppDefaults: SwiftAppDefaultsProtocol {
         self.defaults = UserDefaults.standard
     }
     
-    public static func add(_ key: SwiftAppKeys, _ duration: Duration, _ object: Encodable) {
+    public static func add(_ key: SwiftAppKeys, _ object: Encodable) {
         if let encoded = try? JSONEncoder().encode(object) {
             UserDefaults.standard.set(encoded, forKey: key.rawValue)
         }

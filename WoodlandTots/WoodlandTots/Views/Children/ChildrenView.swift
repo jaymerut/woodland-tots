@@ -50,6 +50,7 @@ struct ChildrenView: View {
 extension ChildrenView: AddChildProtocol {
     func addedChild(child: ChildItem) {
         self.viewModel.children.append(child)
+        SwiftAppDefaults.add(.childModels, self.viewModel.convertChildItemTtoChildModels(models: self.viewModel.children))
     }
 }
 

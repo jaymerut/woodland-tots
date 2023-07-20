@@ -22,6 +22,13 @@ public class ChildModel: Codable {
     var ageString: String = ""
     var note: String = ""
     
+    init(name: String, age: Int, ageUnits: AgeType, note: String) {
+        self.name = name
+        self.age = age
+        self.ageUnits = ageUnits
+        self.note = note
+    }
+    
     public func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
         try container.encodeIfPresent(self.name, forKey: .name)
