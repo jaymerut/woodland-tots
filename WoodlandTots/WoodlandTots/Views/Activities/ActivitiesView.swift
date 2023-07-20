@@ -30,7 +30,7 @@ struct ActivitiesView: View {
                 .listStyle(PlainListStyle())
                 .padding(.top, 10)
             }
-            .navigationTitle("Children")
+            .navigationTitle("Activities")
             .toolbar {
                 NavigationLink {
                     AddChildView(viewModel: .init())
