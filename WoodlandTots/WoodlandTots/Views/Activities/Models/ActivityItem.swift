@@ -5,9 +5,10 @@
 //  Created by Jayme Rutkoski on 7/19/23.
 //
 
-import Foundation
+import SwiftUI
 
-class ActivityItem: ObservableObject, Identifiable {
+class ActivityItem: ObservableObject, Identifiable, Hashable {
+
     var id: String = ""
     var name: String = ""
     var categoryType: CategoryType = .empty
@@ -22,6 +23,13 @@ class ActivityItem: ObservableObject, Identifiable {
         self.name = name
         self.categoryType = categoryType
         self.description = description
+    }
+    
+    static func == (lhs: ActivityItem, rhs: ActivityItem) -> Bool {
+        lhs.id == rhs.id
+    }
+    func hash(into hasher: inout Hasher) {
+        return hasher.combine(id)
     }
 }
 
