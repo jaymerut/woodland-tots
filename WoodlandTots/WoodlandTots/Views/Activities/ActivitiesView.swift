@@ -65,10 +65,15 @@ struct ActivitiesView: View {
     }
 }
 
-extension ActivitiesView: AddActivityProtocol {
-    func addedActivity(activity: ActivityItem) {
+extension ActivitiesView: ActivityFormProtocol {
+
+    func addActivity(activity: ActivityItem) {
         self.viewModel.activities.append(activity)
         SwiftAppDefaults.add(.activityModels, self.viewModel.convertActivityItemToActivityModels(models: self.viewModel.activities))
+    }
+    
+    func editActivity(activity: ActivityItem) {
+        // TODO: Implement
     }
 }
 

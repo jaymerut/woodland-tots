@@ -13,12 +13,12 @@ extension AddActivityView {
             CategoryType.art.rawValue,
             CategoryType.language.rawValue
         ]
-        var delegate: AddActivityProtocol?
+        var delegate: ActivityFormProtocol?
         
         init() {
             
         }
-        init(delegate: AddActivityProtocol) {
+        init(delegate: ActivityFormProtocol) {
             self.delegate = delegate
         }
     }

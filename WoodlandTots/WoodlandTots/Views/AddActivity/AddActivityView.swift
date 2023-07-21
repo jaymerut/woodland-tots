@@ -60,7 +60,7 @@ struct AddActivityView: View {
                                 .frame(minHeight: 200)
                             
                             Button() {
-                                self.viewModel.delegate?.addedActivity(activity: ActivityItem(
+                                self.viewModel.delegate?.addActivity(activity: ActivityItem(
                                     id: UUID.init().uuidString,
                                     name: $name.wrappedValue,
                                     categoryType: CategoryType(rawValue: $selectedCategory.wrappedValue) ?? .empty,
