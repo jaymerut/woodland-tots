@@ -13,6 +13,8 @@ extension ActivityFormView {
             CategoryType.art.rawValue,
             CategoryType.language.rawValue
         ]
+        
+        var model: ActivityItem = .init()
         var delegate: ActivityFormProtocol?
         var mode: FormMode = .add
         lazy var title: String = {
@@ -38,6 +40,11 @@ extension ActivityFormView {
         init(delegate: ActivityFormProtocol, mode: FormMode) {
             self.delegate = delegate
             self.mode = mode
+        }
+        convenience init(model: ActivityItem, delegate: ActivityFormProtocol, mode: FormMode) {
+            self.init(delegate: delegate, mode: mode)
+            self.model = model
+            
         }
     }
 }

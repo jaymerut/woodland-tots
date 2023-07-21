@@ -13,6 +13,10 @@ class ActivityItem: ObservableObject, Identifiable {
     var categoryType: CategoryType = .empty
     var description: String = ""
     
+    init() {
+        self.id = UUID.init().uuidString
+    }
+    
     init(id: String, name: String, categoryType: CategoryType, description: String) {
         self.id = id
         self.name = name

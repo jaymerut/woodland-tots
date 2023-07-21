@@ -13,6 +13,7 @@ extension ChildFormView {
             AgeType.years.rawValue,
             AgeType.months.rawValue
         ]
+        var model: ChildItem = .init()
         var delegate: ChildFormProtocol?
         var mode: FormMode = .add
         lazy var title: String = {
@@ -38,6 +39,10 @@ extension ChildFormView {
         init(delegate: ChildFormProtocol, mode: FormMode) {
             self.delegate = delegate
             self.mode = mode
+        }
+        convenience init(model: ChildItem, delegate: ChildFormProtocol, mode: FormMode) {
+            self.init(delegate: delegate, mode: mode)
+            self.model = model
         }
     }
 }

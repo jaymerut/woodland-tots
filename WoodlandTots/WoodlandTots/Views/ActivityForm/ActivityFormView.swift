@@ -31,6 +31,9 @@ struct ActivityFormView: View {
                                 .accentColor(.black)
                                 .background(RoundedRectangle(cornerRadius: 8).stroke(Color.black, lineWidth: 1))
                                 .padding(.top, -5)
+                                .onAppear() {
+                                    self.name = self.viewModel.model.name
+                                }
                             
                             HStack {
                                 Text("Category:")
@@ -40,6 +43,9 @@ struct ActivityFormView: View {
                                     ForEach(viewModel.categories, id: \.self) {
                                         Text($0)
                                     }
+                                }
+                                .onAppear() {
+                                    self.selectedCategory = self.viewModel.model.categoryType.rawValue
                                 }
                                 
                                 Spacer()
@@ -58,20 +64,20 @@ struct ActivityFormView: View {
                                 .background(RoundedRectangle(cornerRadius: 8).stroke(Color.black, lineWidth: 1))
                                 .padding(.top, -5)
                                 .frame(minHeight: 200)
+                                .onAppear() {
+                                    self.description = self.viewModel.model.description
+                                }
                             
                             Button() {
-                                let activity = ActivityItem(
-                                    id: UUID.init().uuidString,
-                                    name: $name.wrappedValue,
-                                    categoryType: CategoryType(rawValue: $selectedCategory.wrappedValue) ?? .empty,
-                                    description: $description.wrappedValue
-                                )
+                                self.viewModel.model.name = $name.wrappedValue
+                                self.viewModel.model.categoryType = CategoryType(rawValue: $selectedCategory.wrappedValue) ?? .empty
+                                self.viewModel.model.description = $description.wrappedValue
                                 
                                 switch self.viewModel.mode {
                                 case .add:
-                                    self.viewModel.delegate?.addActivity(activity: activity)
+                                    self.viewModel.delegate?.addActivity(activity: self.viewModel.model)
                                 case .edit:
-                                    self.viewModel.delegate?.editActivity(activity: activity)
+                                    self.viewModel.delegate?.editActivity(activity: self.viewModel.model)
                                 }
                                 
                                 dismiss()

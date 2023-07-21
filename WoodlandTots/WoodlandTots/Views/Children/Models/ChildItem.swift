@@ -28,6 +28,10 @@ class ChildItem: ObservableObject, Identifiable {
     }
     var note: String = ""
     
+    init() {
+        self.id = UUID.init().uuidString
+    }
+    
     init(id: String, name: String, age: Int, ageUnits: AgeType, note: String) {
         self.id = id
         self.name = name
