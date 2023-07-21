@@ -10,4 +10,5 @@ import Foundation
 protocol ChildFormProtocol {
     func addChild(child: ChildItem)
     func editChild(child: ChildItem)
+    func removeChild(child: ChildItem)
 }

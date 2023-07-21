@@ -10,7 +10,6 @@ import SwiftUI
 struct ChildrenView: View {
 
     @State private var selection: String? = nil
-    @State private var isEditActive = false
     @ObservedObject var viewModel: ViewModel
     
     var body: some View {
@@ -19,38 +18,11 @@ struct ChildrenView: View {
                 
                 List {
                     ForEach(viewModel.children) { item in
-                        Section {
-                            SwipeView {
-                                ChildCell(item: item)
-                                    .listRowInsets(.init(top: 5, leading: 0, bottom: 5, trailing: 0))
-                                NavigationLink(destination: ChildFormView(viewModel: .init(model: item, delegate: self, mode: .edit)), isActive: $isEditActive) {
-                                    EmptyView()
-                                }
-                                .listRowSeparator(.hidden)
-                                .frame(width: 0, height: 0)
-                                .hidden()
-                            } leadingActions: { _ in
-                            } trailingActions: { _ in
-                                SwipeAction(systemImage: "square.and.pencil", backgroundColor: .green) {
-                                    isEditActive.toggle()
-                                }
-                                .allowSwipeToTrigger(false)
-                                .foregroundColor(.white)
-                                
-                                SwipeAction(systemImage: "trash.fill", backgroundColor: .red) {
-                                    
-                                    if let row = self.viewModel.children.firstIndex(where: { $0.id == item.id }) {
-                                        self.viewModel.children.remove(at: row)
-                                        SwiftAppDefaults.add(.childModels, self.viewModel.convertChildItemToChildModels(models: self.viewModel.children))
-                                    }
-                                    
-                                }
-                                .allowSwipeToTrigger(false)
-                                .foregroundColor(.white)
-                                
-                            }
+                        ChildCell(item: item, delegate: self)
+                            .listRowInsets(.init(top: 5, leading: 5, bottom: 5, trailing: 5))
+                            .buttonStyle(PlainButtonStyle())
+                            .listRowBackground(Color.clear)
                             .listRowSeparator(.hidden)
-                        }
                     }
                 }
                 .listStyle(PlainListStyle())
@@ -85,6 +57,13 @@ extension ChildrenView: ChildFormProtocol {
         if let row = self.viewModel.children.firstIndex(where: { $0.id == child.id }) {
             self.viewModel.children[row] = child
             SwiftAppDefaults.add(.childModels, self.viewModel.convertChildItemToChildModels(models: self.viewModel.children))
+        }
+    }
+    
+    func removeChild(child: ChildItem) {
+        if let row = self.viewModel.children.firstIndex(where: { $0.id == child.id }) {
+            self.viewModel.children.remove(at: row)
+            SwiftAppDefaults.add(.activityModels, self.viewModel.convertChildItemToChildModels(models: self.viewModel.children))
         }
     }
 }

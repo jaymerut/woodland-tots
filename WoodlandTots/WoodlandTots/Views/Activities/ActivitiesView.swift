@@ -10,7 +10,6 @@ import SwiftUI
 struct ActivitiesView: View {
 
     @State private var selection: String? = nil
-    @State private var isEditActive = false
     @ObservedObject var viewModel: ViewModel
     
     var body: some View {
@@ -57,8 +56,8 @@ extension ActivitiesView: ActivityFormProtocol {
         if let row = self.viewModel.activities.firstIndex(where: { $0.id == activity.id }) {
             self.viewModel.activities.insert(activity, at: row)
             self.viewModel.activities.remove(at: row)
-            //
-            //SwiftAppDefaults.add(.activityModels, self.viewModel.convertActivityItemToActivityModels(models: self.viewModel.activities))
+            
+            SwiftAppDefaults.add(.activityModels, self.viewModel.convertActivityItemToActivityModels(models: self.viewModel.activities))
         }
     }
     
