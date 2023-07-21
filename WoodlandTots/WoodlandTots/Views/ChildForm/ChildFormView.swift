@@ -75,7 +75,7 @@ struct ChildFormView: View {
                                 ))
                                 dismiss()
                             } label: {
-                                Text("Add Child")
+                                Text(self.viewModel.title)
                                             .frame(minWidth: 0, maxWidth: .infinity)
                                             .font(.system(size: 22))
                                             .padding()
@@ -93,7 +93,7 @@ struct ChildFormView: View {
                 }
                 .frame(maxHeight: .infinity)
             }
-            .navigationTitle("Add Child")
+            .navigationTitle(self.viewModel.submitText)
         }
         .padding(.horizontal, 20)
     }

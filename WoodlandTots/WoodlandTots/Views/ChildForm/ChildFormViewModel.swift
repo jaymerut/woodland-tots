@@ -15,6 +15,22 @@ extension ChildFormView {
         ]
         var delegate: ChildFormProtocol?
         var mode: FormMode = .add
+        lazy var title: String = {
+            switch mode {
+            case .add:
+                return "Add Child"
+            case .edit:
+                return "Edit Child"
+            }
+        }()
+        lazy var submitText: String = {
+            switch mode {
+            case .add:
+                return "Add Child"
+            case .edit:
+                return "Edit Child"
+            }
+        }()
         
         init() {
             

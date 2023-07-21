@@ -68,7 +68,7 @@ struct ActivityFormView: View {
                                 ))
                                 dismiss()
                             } label: {
-                                Text("Add Activity")
+                                Text(self.viewModel.title)
                                             .frame(minWidth: 0, maxWidth: .infinity)
                                             .font(.system(size: 22))
                                             .padding()
@@ -86,7 +86,7 @@ struct ActivityFormView: View {
                 }
                 .frame(maxHeight: .infinity)
             }
-            .navigationTitle("Add Activity")
+            .navigationTitle(self.viewModel.submitText)
         }
         .padding(.horizontal, 20)
     }

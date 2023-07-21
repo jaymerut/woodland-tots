@@ -15,6 +15,22 @@ extension ActivityFormView {
         ]
         var delegate: ActivityFormProtocol?
         var mode: FormMode = .add
+        lazy var title: String = {
+            switch mode {
+            case .add:
+                return "Add Activity"
+            case .edit:
+                return "Edit Activity"
+            }
+        }()
+        lazy var submitText: String = {
+            switch mode {
+            case .add:
+                return "Add Activity"
+            case .edit:
+                return "Edit Activity"
+            }
+        }()
         
         init() {
             
