@@ -1,5 +1,5 @@
 //
-//  AddChildViewModel.swift
+//  ChildFormViewModel.swift
 //  WoodlandTots
 //
 //  Created by Jayme Rutkoski on 7/18/23.
@@ -7,7 +7,7 @@
 
 import Foundation
 
-extension AddChildView {
+extension ChildFormView {
     class ViewModel: ObservableObject {
         var ageTypes: [String] = [
             AgeType.years.rawValue,
