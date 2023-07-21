@@ -1,5 +1,5 @@
 //
-//  AddActivityViewModel.swift
+//  ActivityFormViewModel.swift
 //  WoodlandTots
 //
 //  Created by Jayme Rutkoski on 7/20/23.
@@ -7,7 +7,7 @@
 
 import Foundation
 
-extension AddActivityView {
+extension ActivityFormView {
     class ViewModel: ObservableObject {
         var categories: [String] = [
             CategoryType.art.rawValue,

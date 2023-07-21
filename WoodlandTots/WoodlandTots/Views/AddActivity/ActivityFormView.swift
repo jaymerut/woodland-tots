@@ -1,5 +1,5 @@
 //
-//  AddActivityView.swift
+//  ActivityFormView.swift
 //  WoodlandTots
 //
 //  Created by Jayme Rutkoski on 7/20/23.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct AddActivityView: View {
+struct ActivityFormView: View {
 
     @Environment(\.dismiss) private var dismiss
     @ObservedObject var viewModel: ViewModel
@@ -92,8 +92,8 @@ struct AddActivityView: View {
     }
 }
 
-struct AddActivityView_Previews: PreviewProvider {
+struct ActivityFormView_Previews: PreviewProvider {
     static var previews: some View {
-        AddActivityView(viewModel: .init())
+        ActivityFormView(viewModel: .init())
     }
 }
