@@ -14,12 +14,14 @@ extension ActivityFormView {
             CategoryType.language.rawValue
         ]
         var delegate: ActivityFormProtocol?
+        var mode: FormMode = .add
         
         init() {
             
         }
-        init(delegate: ActivityFormProtocol) {
+        init(delegate: ActivityFormProtocol, mode: FormMode) {
             self.delegate = delegate
+            self.mode = mode
         }
     }
 }

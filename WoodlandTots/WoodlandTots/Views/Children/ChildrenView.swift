@@ -53,7 +53,7 @@ struct ChildrenView: View {
             .navigationTitle("Children")
             .toolbar {
                 NavigationLink {
-                    ChildFormView(viewModel: .init(delegate: self))
+                    ChildFormView(viewModel: .init(delegate: self, mode: .add))
                 } label: {
                     Image("add")
                         .renderingMode(.template)

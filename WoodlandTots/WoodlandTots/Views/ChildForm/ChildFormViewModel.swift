@@ -14,12 +14,14 @@ extension ChildFormView {
             AgeType.months.rawValue
         ]
         var delegate: ChildFormProtocol?
+        var mode: FormMode = .add
         
         init() {
             
         }
-        init(delegate: ChildFormProtocol) {
+        init(delegate: ChildFormProtocol, mode: FormMode) {
             self.delegate = delegate
+            self.mode = mode
         }
     }
 }

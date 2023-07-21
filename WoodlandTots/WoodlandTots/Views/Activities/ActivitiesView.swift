@@ -52,7 +52,7 @@ struct ActivitiesView: View {
             .navigationTitle("Activities")
             .toolbar {
                 NavigationLink {
-                    ActivityFormView(viewModel: .init(delegate: self))
+                    ActivityFormView(viewModel: .init(delegate: self, mode: .add))
                 } label: {
                     Image("add")
                         .renderingMode(.template)
