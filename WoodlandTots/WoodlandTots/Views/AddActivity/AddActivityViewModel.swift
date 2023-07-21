@@ -10,7 +10,8 @@ import Foundation
 extension AddActivityView {
     class ViewModel: ObservableObject {
         var categories: [String] = [
-            
+            CategoryType.art.rawValue,
+            CategoryType.language.rawValue
         ]
         var delegate: AddActivityProtocol?
         

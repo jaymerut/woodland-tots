@@ -32,14 +32,20 @@ struct AddActivityView: View {
                                 .background(RoundedRectangle(cornerRadius: 8).stroke(Color.black, lineWidth: 1))
                                 .padding(.top, -5)
                             
-                            Text("Category:")
-                                .frame(maxWidth: .infinity, alignment: .leading)
-                                .padding(.top, 10)
-                            Picker("Please choose a category", selection: $selectedCategory) {
-                                ForEach(viewModel.categories, id: \.self) {
-                                    Text($0)
+                            HStack {
+                                Text("Category:")
+                                    .padding(.trailing, -10)
+                                
+                                Picker("Please choose a category", selection: $selectedCategory) {
+                                    ForEach(viewModel.categories, id: \.self) {
+                                        Text($0)
+                                    }
                                 }
+                                
+                                Spacer()
                             }
+                            .padding(.top, 10)
+                            
                                                         
                             Text("Description:")
                                 .frame(maxWidth: .infinity, alignment: .leading)
