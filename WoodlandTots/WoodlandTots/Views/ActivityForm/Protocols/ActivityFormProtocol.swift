@@ -10,4 +10,5 @@ import Foundation
 protocol ActivityFormProtocol {
     func addActivity(activity: ActivityItem)
     func editActivity(activity: ActivityItem)
+    func removeActivity(activity: ActivityItem)
 }

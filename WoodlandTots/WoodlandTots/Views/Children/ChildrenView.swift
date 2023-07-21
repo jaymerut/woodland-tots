@@ -39,8 +39,8 @@ struct ChildrenView: View {
                                 
                                 SwipeAction(systemImage: "trash.fill", backgroundColor: .red) {
                                     
-                                    if let index = self.viewModel.children.firstIndex(where: { $0.id == item.id }) {
-                                        self.viewModel.children.remove(at: Int(index.description)!)
+                                    if let row = self.viewModel.children.firstIndex(where: { $0.id == item.id }) {
+                                        self.viewModel.children.remove(at: row)
                                         SwiftAppDefaults.add(.childModels, self.viewModel.convertChildItemToChildModels(models: self.viewModel.children))
                                     }
                                     
@@ -61,9 +61,12 @@ struct ChildrenView: View {
                 NavigationLink {
                     ChildFormView(viewModel: .init(delegate: self, mode: .add))
                 } label: {
-                    Image("add")
+                    Image(systemName: "plus")
                         .renderingMode(.template)
-                        .foregroundColor(.init(hex: 0x097969))
+                        .frame(width: 45, height: 45)
+                        .foregroundColor(.white)
+                        .background(Color.init(hex: 0x097969))
+                        .clipShape(Circle())
                 }
                 .buttonStyle(.automatic)
                 
@@ -79,7 +82,10 @@ extension ChildrenView: ChildFormProtocol {
     }
     
     func editChild(child: ChildItem) {
-        // TODO: Implement
+        if let row = self.viewModel.children.firstIndex(where: { $0.id == child.id }) {
+            self.viewModel.children[row] = child
+            SwiftAppDefaults.add(.childModels, self.viewModel.convertChildItemToChildModels(models: self.viewModel.children))
+        }
     }
 }
 

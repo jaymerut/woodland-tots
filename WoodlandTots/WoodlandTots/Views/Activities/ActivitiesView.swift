@@ -14,46 +14,17 @@ struct ActivitiesView: View {
     @ObservedObject var viewModel: ViewModel
     
     var body: some View {
-        return NavigationStack() {
+        return NavigationView() {
             VStack() {
-                
                 List {
                     ForEach(viewModel.activities) { item in
-                       // Section {
-                            SwipeView {
-                                ActivityCell(item: item)
-                                    .listRowInsets(.init(top: 5, leading: 0, bottom: 5, trailing: 0))
-                                NavigationLink(destination: ActivityFormView(viewModel: .init(model: item, delegate: self, mode: .edit)), isActive: $isEditActive) {
-                                    EmptyView()
-                                }
-                                .listRowSeparator(.hidden)
-                                .frame(width: 0, height: 0)
-                                .hidden()
-                                    
-                            } leadingActions: { _ in
-                            } trailingActions: { _ in
-                                SwipeAction(systemImage: "square.and.pencil", backgroundColor: .green) {
-                                    isEditActive.toggle()
-                                }
-                                .allowSwipeToTrigger(false)
-                                .foregroundColor(.white)
-                                
-                                SwipeAction(systemImage: "trash.fill", backgroundColor: .red) {
-                                    
-                                    if let index = self.viewModel.activities.firstIndex(where: { $0.id == item.id }) {
-                                        self.viewModel.activities.remove(at: Int(index.description)!)
-                                        SwiftAppDefaults.add(.activityModels, self.viewModel.convertActivityItemToActivityModels(models: self.viewModel.activities))
-                                    }
-                                    
-                                }
-                                .allowSwipeToTrigger(false)
-                                .foregroundColor(.white)
-                            }
+                        ActivityCell(item: item, delegate: self)
+                            .listRowInsets(.init(top: 5, leading: 5, bottom: 5, trailing: 5))
+                            .buttonStyle(PlainButtonStyle())
+                            .listRowBackground(Color.clear)
                             .listRowSeparator(.hidden)
                     }
-                    
                 }
-                .listRowSeparator(.hidden)
                 .listStyle(PlainListStyle())
                 .padding(.top, 10)
             }
@@ -62,12 +33,14 @@ struct ActivitiesView: View {
                 NavigationLink {
                     ActivityFormView(viewModel: .init(delegate: self, mode: .add))
                 } label: {
-                    Image("add")
+                    Image(systemName: "plus")
                         .renderingMode(.template)
-                        .foregroundColor(.init(hex: 0x097969))
+                        .frame(width: 45, height: 45)
+                        .foregroundColor(.white)
+                        .background(Color.init(hex: 0x097969))
+                        .clipShape(Circle())
                 }
                 .buttonStyle(.automatic)
-                
             }
         }
     }
@@ -81,7 +54,19 @@ extension ActivitiesView: ActivityFormProtocol {
     }
     
     func editActivity(activity: ActivityItem) {
-        // TODO: Implement
+        if let row = self.viewModel.activities.firstIndex(where: { $0.id == activity.id }) {
+            self.viewModel.activities.insert(activity, at: row)
+            self.viewModel.activities.remove(at: row)
+            //
+            //SwiftAppDefaults.add(.activityModels, self.viewModel.convertActivityItemToActivityModels(models: self.viewModel.activities))
+        }
+    }
+    
+    func removeActivity(activity: ActivityItem) {
+        if let row = self.viewModel.activities.firstIndex(where: { $0.id == activity.id }) {
+            self.viewModel.activities.remove(at: row)
+            SwiftAppDefaults.add(.activityModels, self.viewModel.convertActivityItemToActivityModels(models: self.viewModel.activities))
+        }
     }
 }
 
