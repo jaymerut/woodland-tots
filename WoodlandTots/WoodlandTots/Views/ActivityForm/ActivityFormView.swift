@@ -60,12 +60,20 @@ struct ActivityFormView: View {
                                 .frame(minHeight: 200)
                             
                             Button() {
-                                self.viewModel.delegate?.addActivity(activity: ActivityItem(
+                                let activity = ActivityItem(
                                     id: UUID.init().uuidString,
                                     name: $name.wrappedValue,
                                     categoryType: CategoryType(rawValue: $selectedCategory.wrappedValue) ?? .empty,
                                     description: $description.wrappedValue
-                                ))
+                                )
+                                
+                                switch self.viewModel.mode {
+                                case .add:
+                                    self.viewModel.delegate?.addActivity(activity: activity)
+                                case .edit:
+                                    self.viewModel.delegate?.editActivity(activity: activity)
+                                }
+                                
                                 dismiss()
                             } label: {
                                 Text(self.viewModel.title)

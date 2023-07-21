@@ -66,13 +66,21 @@ struct ChildFormView: View {
                                 .frame(minHeight: 200)
                             
                             Button() {
-                                self.viewModel.delegate?.addChild(child: ChildItem(
+                                let child = ChildItem(
                                     id: UUID.init().uuidString,
                                     name: $name.wrappedValue,
                                     age: Int($age.wrappedValue) ?? 0,
                                     ageUnits: AgeType(rawValue: $selectedAgeType.wrappedValue) ?? .months,
                                     note: $note.wrappedValue
-                                ))
+                                )
+                                
+                                switch self.viewModel.mode {
+                                case .add:
+                                    self.viewModel.delegate?.addChild(child: child)
+                                case .edit:
+                                    self.viewModel.delegate?.editChild(child: child)
+                                }
+                               
                                 dismiss()
                             } label: {
                                 Text(self.viewModel.title)
