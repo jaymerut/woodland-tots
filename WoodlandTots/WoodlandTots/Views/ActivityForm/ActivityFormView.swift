@@ -69,6 +69,9 @@ struct ActivityFormView: View {
                                 }
                             
                             Button() {
+                                if $selectedCategory.wrappedValue.isEmpty {
+                                    self.selectedCategory = self.viewModel.categories.first ?? ""
+                                }
                                 self.viewModel.model.name = $name.wrappedValue
                                 self.viewModel.model.categoryType = CategoryType(rawValue: $selectedCategory.wrappedValue) ?? .empty
                                 self.viewModel.model.description = $description.wrappedValue
