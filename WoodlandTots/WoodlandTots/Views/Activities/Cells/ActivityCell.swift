@@ -27,7 +27,10 @@ struct ActivityCell: View {
 struct ActivityCell_Previews: PreviewProvider {
     static var previews: some View {
         ActivityCell(item: .init(
-            name: "Test 1"
+            id: UUID.init().uuidString,
+            name: "Test 1",
+            categoryType: .art,
+            description: "Desc"
         ))
     }
 }

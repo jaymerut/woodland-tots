@@ -17,7 +17,7 @@ struct ActivitiesView: View {
             VStack() {
                 
                 List {
-                    ForEach(viewModel.children) { item in
+                    ForEach(viewModel.activities) { item in
                         Section {
                             ActivityCell(item: item)
                                 .listRowInsets(.init(top: 5, leading: 0, bottom: 5, trailing: 0))
@@ -33,7 +33,7 @@ struct ActivitiesView: View {
             .navigationTitle("Activities")
             .toolbar {
                 NavigationLink {
-                    AddChildView(viewModel: .init())
+                    AddActivityView(viewModel: .init(delegate: self))
                 } label: {
                     Image("add")
                         .renderingMode(.template)
@@ -44,6 +44,13 @@ struct ActivitiesView: View {
             }
         }
         .padding(.horizontal, 20)
+    }
+}
+
+extension ActivitiesView: AddActivityProtocol {
+    func addedActivity(activity: ActivityItem) {
+        self.viewModel.activities.append(activity)
+        SwiftAppDefaults.add(.activityModels, self.viewModel.convertActivityItemToActivityModels(models: self.viewModel.activities))
     }
 }
 

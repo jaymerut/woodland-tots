@@ -37,7 +37,7 @@ struct ChildrenView: View {
                                     
                                     if let index = self.viewModel.children.firstIndex(where: { $0.id == item.id }) {
                                         self.viewModel.children.remove(at: Int(index.description)!)
-                                        SwiftAppDefaults.add(.childModels, self.viewModel.convertChildItemTtoChildModels(models: self.viewModel.children))
+                                        SwiftAppDefaults.add(.childModels, self.viewModel.convertChildItemToChildModels(models: self.viewModel.children))
                                     }
                                     
                                 }
@@ -75,7 +75,7 @@ struct ChildrenView: View {
 extension ChildrenView: AddChildProtocol {
     func addedChild(child: ChildItem) {
         self.viewModel.children.append(child)
-        SwiftAppDefaults.add(.childModels, self.viewModel.convertChildItemTtoChildModels(models: self.viewModel.children))
+        SwiftAppDefaults.add(.childModels, self.viewModel.convertChildItemToChildModels(models: self.viewModel.children))
     }
 }
 

@@ -17,7 +17,7 @@ extension ChildrenView {
             self.children = self.convertChildModelsToChildItems(models: childModels)
         }
         
-        func convertChildItemTtoChildModels(models: [ChildItem]) -> [ChildModel] {
+        func convertChildItemToChildModels(models: [ChildItem]) -> [ChildModel] {
             var result = [ChildModel]()
             
             for item in models {
