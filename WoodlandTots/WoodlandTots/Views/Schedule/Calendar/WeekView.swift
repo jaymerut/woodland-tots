@@ -36,7 +36,9 @@ struct WeekView<DateView>: View where DateView: View {
             ForEach(days, id: \.self) { date in
                 HStack {
                     if self.calendar.isDate(self.week, equalTo: date, toGranularity: .month) {
-                        self.content(date)
+                        NavigationLink(destination: Text("Second view: \(date.description)")) {
+                            self.content(date)
+                        }
                     } else {
                         self.content(date).hidden()
                     }
