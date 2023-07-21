@@ -66,10 +66,14 @@ struct ChildrenView: View {
     }
 }
 
-extension ChildrenView: AddChildProtocol {
-    func addedChild(child: ChildItem) {
+extension ChildrenView: ChildFormProtocol {
+    func addChild(child: ChildItem) {
         self.viewModel.children.append(child)
         SwiftAppDefaults.add(.childModels, self.viewModel.convertChildItemToChildModels(models: self.viewModel.children))
+    }
+    
+    func editChild(child: ChildItem) {
+        // TODO: Implement
     }
 }
 

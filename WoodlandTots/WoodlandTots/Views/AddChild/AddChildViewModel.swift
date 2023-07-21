@@ -13,12 +13,12 @@ extension AddChildView {
             AgeType.years.rawValue,
             AgeType.months.rawValue
         ]
-        var delegate: AddChildProtocol?
+        var delegate: ChildFormProtocol?
         
         init() {
             
         }
-        init(delegate: AddChildProtocol) {
+        init(delegate: ChildFormProtocol) {
             self.delegate = delegate
         }
     }
