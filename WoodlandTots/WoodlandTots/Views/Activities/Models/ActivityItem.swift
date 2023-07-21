@@ -14,7 +14,10 @@ class ActivityItem: ObservableObject, Identifiable {
     var description: String = ""
     
     init(id: String, name: String, categoryType: CategoryType, description: String) {
+        self.id = id
         self.name = name
+        self.categoryType = categoryType
+        self.description = description
     }
 }
 
