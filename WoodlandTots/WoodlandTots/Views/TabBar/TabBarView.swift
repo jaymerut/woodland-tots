@@ -16,10 +16,8 @@ struct TabBarView: View {
                 .tabItem {
                     Image("children_tab")
                         .renderingMode(.template)
-                        .foregroundColor(Color.init(hex: 0x097969))
                     Text("Children")
                 }
-                .foregroundColor(Color.init(hex: 0x097969))
                 .tag(0)
             ActivitiesView(viewModel: .init())
                 .tabItem {

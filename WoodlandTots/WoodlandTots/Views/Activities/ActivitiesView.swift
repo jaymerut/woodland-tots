@@ -28,13 +28,14 @@ struct ActivitiesView: View {
                 .padding(.top, 10)
             }
             .navigationTitle("Activities")
+            .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 NavigationLink {
                     ActivityFormView(viewModel: .init(delegate: self, mode: .add))
                 } label: {
                     Image(systemName: "plus")
                         .renderingMode(.template)
-                        .frame(width: 45, height: 45)
+                        .frame(width: 35, height: 35)
                         .foregroundColor(.white)
                         .background(Color.init(hex: 0x097969))
                         .clipShape(Circle())

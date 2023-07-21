@@ -61,7 +61,7 @@ struct ChildFormView: View {
                                 }
                                 
                             }
-                                                        
+                            
                             Text("Note:")
                                 .frame(maxWidth: .infinity, alignment: .leading)
                                 .padding(.top, 10)
@@ -89,13 +89,13 @@ struct ChildFormView: View {
                                 case .edit:
                                     self.viewModel.delegate?.editChild(child: self.viewModel.model)
                                 }
-                               
+                                
                                 dismiss()
                             } label: {
                                 Text(self.viewModel.title)
-                                            .frame(minWidth: 0, maxWidth: .infinity)
-                                            .font(.system(size: 22))
-                                            .padding()
+                                    .frame(minWidth: 0, maxWidth: .infinity)
+                                    .font(.system(size: 22))
+                                    .padding()
                             }
                             .buttonStyle(.plain)
                             .padding(10)
@@ -111,6 +111,7 @@ struct ChildFormView: View {
                 .frame(maxHeight: .infinity)
             }
             .navigationTitle(self.viewModel.submitText)
+            .navigationBarTitleDisplayMode(.inline)
         }
         .padding(.horizontal, 20)
     }

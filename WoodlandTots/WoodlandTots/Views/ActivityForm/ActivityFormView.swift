@@ -52,7 +52,7 @@ struct ActivityFormView: View {
                             }
                             .padding(.top, 10)
                             
-                                                        
+                            
                             Text("Description:")
                                 .frame(maxWidth: .infinity, alignment: .leading)
                                 .padding(.top, 10)
@@ -83,9 +83,9 @@ struct ActivityFormView: View {
                                 dismiss()
                             } label: {
                                 Text(self.viewModel.title)
-                                            .frame(minWidth: 0, maxWidth: .infinity)
-                                            .font(.system(size: 22))
-                                            .padding()
+                                    .frame(minWidth: 0, maxWidth: .infinity)
+                                    .font(.system(size: 22))
+                                    .padding()
                             }
                             .buttonStyle(.plain)
                             .padding(10)
@@ -101,6 +101,7 @@ struct ActivityFormView: View {
                 .frame(maxHeight: .infinity)
             }
             .navigationTitle(self.viewModel.submitText)
+            .navigationBarTitleDisplayMode(.inline)
         }
         .padding(.horizontal, 20)
     }
