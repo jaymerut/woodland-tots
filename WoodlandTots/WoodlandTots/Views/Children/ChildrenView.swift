@@ -10,6 +10,7 @@ import SwiftUI
 struct ChildrenView: View {
 
     @State private var selection: String? = nil
+    @State private var isEditActive = false
     @ObservedObject var viewModel: ViewModel
     
     var body: some View {
@@ -21,12 +22,17 @@ struct ChildrenView: View {
                         Section {
                             SwipeView {
                                 ChildCell(item: item)
-                                    .listRowSeparator(.hidden)
                                     .listRowInsets(.init(top: 5, leading: 0, bottom: 5, trailing: 0))
+                                NavigationLink(destination: ChildFormView(viewModel: .init(model: item, delegate: self, mode: .edit)), isActive: $isEditActive) {
+                                    EmptyView()
+                                }
+                                .listRowSeparator(.hidden)
+                                .frame(width: 0, height: 0)
+                                .hidden()
                             } leadingActions: { _ in
                             } trailingActions: { _ in
                                 SwipeAction(systemImage: "square.and.pencil", backgroundColor: .green) {
-                                    // TODO: Navigate user to Edit view
+                                    isEditActive.toggle()
                                 }
                                 .allowSwipeToTrigger(false)
                                 .foregroundColor(.white)
@@ -43,6 +49,7 @@ struct ChildrenView: View {
                                 .foregroundColor(.white)
                                 
                             }
+                            .listRowSeparator(.hidden)
                         }
                     }
                 }

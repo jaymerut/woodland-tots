@@ -7,15 +7,15 @@
 
 import SwiftUI
 
-class ActivityItem: ObservableObject, Identifiable, Hashable {
+class ActivityItem: ObservableObject, Identifiable {
 
-    var id: String = ""
+    var id: String = UUID().uuidString
     var name: String = ""
     var categoryType: CategoryType = .empty
     var description: String = ""
     
     init() {
-        self.id = UUID.init().uuidString
+
     }
     
     init(id: String, name: String, categoryType: CategoryType, description: String) {
@@ -23,13 +23,6 @@ class ActivityItem: ObservableObject, Identifiable, Hashable {
         self.name = name
         self.categoryType = categoryType
         self.description = description
-    }
-    
-    static func == (lhs: ActivityItem, rhs: ActivityItem) -> Bool {
-        lhs.id == rhs.id
-    }
-    func hash(into hasher: inout Hasher) {
-        return hasher.combine(id)
     }
 }
 
