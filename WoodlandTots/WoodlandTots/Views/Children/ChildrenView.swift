@@ -6,7 +6,6 @@
 //
 
 import SwiftUI
-import SwipeActions
 
 struct ChildrenView: View {
 
@@ -19,32 +18,11 @@ struct ChildrenView: View {
                 
                 List {
                     ForEach(viewModel.children) { item in
-                        Section {
-                            SwipeView {
-                                ChildCell(item: item)
-                                    .listRowSeparator(.hidden)
-                                    .listRowInsets(.init(top: 5, leading: 0, bottom: 5, trailing: 0))
-                            } leadingActions: { _ in
-                            } trailingActions: { _ in
-                                SwipeAction(systemImage: "square.and.pencil", backgroundColor: .green) {
-                                    // TODO: Navigate user to Edit view
-                                }
-                                .allowSwipeToTrigger(false)
-                                .foregroundColor(.white)
-                                
-                                SwipeAction(systemImage: "trash.fill", backgroundColor: .red) {
-                                    
-                                    if let index = self.viewModel.children.firstIndex(where: { $0.id == item.id }) {
-                                        self.viewModel.children.remove(at: Int(index.description)!)
-                                        SwiftAppDefaults.add(.childModels, self.viewModel.convertChildItemToChildModels(models: self.viewModel.children))
-                                    }
-                                    
-                                }
-                                .allowSwipeToTrigger(false)
-                                .foregroundColor(.white)
-                                
-                            }
-                        }
+                        ChildCell(item: item, delegate: self)
+                            .listRowInsets(.init(top: 5, leading: 5, bottom: 5, trailing: 5))
+                            .buttonStyle(PlainButtonStyle())
+                            .listRowBackground(Color.clear)
+                            .listRowSeparator(.hidden)
                     }
                 }
                 .listStyle(PlainListStyle())
@@ -53,11 +31,14 @@ struct ChildrenView: View {
             .navigationTitle("Children")
             .toolbar {
                 NavigationLink {
-                    AddChildView(viewModel: .init(delegate: self))
+                    ChildFormView(viewModel: .init(delegate: self, mode: .add))
                 } label: {
-                    Image("add")
+                    Image(systemName: "plus")
                         .renderingMode(.template)
-                        .foregroundColor(.init(hex: 0x097969))
+                        .frame(width: 45, height: 45)
+                        .foregroundColor(.white)
+                        .background(Color.init(hex: 0x097969))
+                        .clipShape(Circle())
                 }
                 .buttonStyle(.automatic)
                 
@@ -66,10 +47,24 @@ struct ChildrenView: View {
     }
 }
 
-extension ChildrenView: AddChildProtocol {
-    func addedChild(child: ChildItem) {
+extension ChildrenView: ChildFormProtocol {
+    func addChild(child: ChildItem) {
         self.viewModel.children.append(child)
         SwiftAppDefaults.add(.childModels, self.viewModel.convertChildItemToChildModels(models: self.viewModel.children))
+    }
+    
+    func editChild(child: ChildItem) {
+        if let row = self.viewModel.children.firstIndex(where: { $0.id == child.id }) {
+            self.viewModel.children[row] = child
+            SwiftAppDefaults.add(.childModels, self.viewModel.convertChildItemToChildModels(models: self.viewModel.children))
+        }
+    }
+    
+    func removeChild(child: ChildItem) {
+        if let row = self.viewModel.children.firstIndex(where: { $0.id == child.id }) {
+            self.viewModel.children.remove(at: row)
+            SwiftAppDefaults.add(.activityModels, self.viewModel.convertChildItemToChildModels(models: self.viewModel.children))
+        }
     }
 }
 

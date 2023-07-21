@@ -1,5 +1,5 @@
 //
-//  AddActivityView.swift
+//  ActivityFormView.swift
 //  WoodlandTots
 //
 //  Created by Jayme Rutkoski on 7/20/23.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct AddActivityView: View {
+struct ActivityFormView: View {
 
     @Environment(\.dismiss) private var dismiss
     @ObservedObject var viewModel: ViewModel
@@ -31,6 +31,9 @@ struct AddActivityView: View {
                                 .accentColor(.black)
                                 .background(RoundedRectangle(cornerRadius: 8).stroke(Color.black, lineWidth: 1))
                                 .padding(.top, -5)
+                                .onAppear() {
+                                    self.name = self.viewModel.model.name
+                                }
                             
                             HStack {
                                 Text("Category:")
@@ -40,6 +43,9 @@ struct AddActivityView: View {
                                     ForEach(viewModel.categories, id: \.self) {
                                         Text($0)
                                     }
+                                }
+                                .onAppear() {
+                                    self.selectedCategory = self.viewModel.model.categoryType.rawValue
                                 }
                                 
                                 Spacer()
@@ -58,17 +64,25 @@ struct AddActivityView: View {
                                 .background(RoundedRectangle(cornerRadius: 8).stroke(Color.black, lineWidth: 1))
                                 .padding(.top, -5)
                                 .frame(minHeight: 200)
+                                .onAppear() {
+                                    self.description = self.viewModel.model.description
+                                }
                             
                             Button() {
-                                self.viewModel.delegate?.addedActivity(activity: ActivityItem(
-                                    id: UUID.init().uuidString,
-                                    name: $name.wrappedValue,
-                                    categoryType: CategoryType(rawValue: $selectedCategory.wrappedValue) ?? .empty,
-                                    description: $description.wrappedValue
-                                ))
+                                self.viewModel.model.name = $name.wrappedValue
+                                self.viewModel.model.categoryType = CategoryType(rawValue: $selectedCategory.wrappedValue) ?? .empty
+                                self.viewModel.model.description = $description.wrappedValue
+                                
+                                switch self.viewModel.mode {
+                                case .add:
+                                    self.viewModel.delegate?.addActivity(activity: self.viewModel.model)
+                                case .edit:
+                                    self.viewModel.delegate?.editActivity(activity: self.viewModel.model)
+                                }
+                                
                                 dismiss()
                             } label: {
-                                Text("Add Activity")
+                                Text(self.viewModel.title)
                                             .frame(minWidth: 0, maxWidth: .infinity)
                                             .font(.system(size: 22))
                                             .padding()
@@ -86,14 +100,14 @@ struct AddActivityView: View {
                 }
                 .frame(maxHeight: .infinity)
             }
-            .navigationTitle("Add Activity")
+            .navigationTitle(self.viewModel.submitText)
         }
         .padding(.horizontal, 20)
     }
 }
 
-struct AddActivityView_Previews: PreviewProvider {
+struct ActivityFormView_Previews: PreviewProvider {
     static var previews: some View {
-        AddActivityView(viewModel: .init())
+        ActivityFormView(viewModel: .init())
     }
 }

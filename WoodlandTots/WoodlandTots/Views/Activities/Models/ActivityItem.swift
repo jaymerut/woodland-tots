@@ -5,13 +5,18 @@
 //  Created by Jayme Rutkoski on 7/19/23.
 //
 
-import Foundation
+import SwiftUI
 
 class ActivityItem: ObservableObject, Identifiable {
-    var id: String = ""
+
+    var id: String = UUID().uuidString
     var name: String = ""
     var categoryType: CategoryType = .empty
     var description: String = ""
+    
+    init() {
+
+    }
     
     init(id: String, name: String, categoryType: CategoryType, description: String) {
         self.id = id

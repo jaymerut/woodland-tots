@@ -9,7 +9,7 @@ import Foundation
 
 class ChildItem: ObservableObject, Identifiable {
     
-    var id: String = ""
+    var id: String = UUID().uuidString
     var name: String = ""
     var age: Int = 0
     var ageUnits: AgeType = .years
@@ -27,6 +27,10 @@ class ChildItem: ObservableObject, Identifiable {
         }
     }
     var note: String = ""
+    
+    init() {
+        
+    }
     
     init(id: String, name: String, age: Int, ageUnits: AgeType, note: String) {
         self.id = id
