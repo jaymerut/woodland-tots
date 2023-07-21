@@ -21,25 +21,25 @@ struct ScheduleView: View {
     var body: some View {
         return NavigationStack() {
             VStack {
-                CalendarView(interval: year) { date in
-                    Text("30")
-                        .hidden()
-                        .padding(8)
-                        .background(Color.green)
-                        .clipShape(RoundedRectangle(cornerRadius: 5))
-                        .padding(.vertical, 4)
-                        .overlay(
-                            VStack {
-                                Text(String(self.calendar.component(.day, from: date)))
-                                    .fontWeight(.bold)
-                            }
-                        )
+                HStack() {
+                    CalendarView(interval: year) { date in
+                        Text("30")
+                            .hidden()
+                            .padding(8)
+                            .background(Color.green)
+                            .clipShape(RoundedRectangle(cornerRadius: 5))
+                            .padding(.vertical, 4)
+                            .overlay(
+                                VStack {
+                                    Text(String(self.calendar.component(.day, from: date)))
+                                        .fontWeight(.bold)
+                                }
+                            )
+                    }
                 }
-                .background(Color.blue)
-                Spacer()
             }
             .navigationTitle("Schedule")
-            
+            .navigationBarTitleDisplayMode(.inline)
         }
     }
 }
