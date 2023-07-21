@@ -18,7 +18,6 @@ struct ChildrenView: View {
             VStack() {
                 
                 List {
-                    
                     ForEach(viewModel.children) { item in
                         Section {
                             SwipeView {
@@ -28,7 +27,7 @@ struct ChildrenView: View {
                             } leadingActions: { _ in
                             } trailingActions: { _ in
                                 SwipeAction(systemImage: "square.and.pencil", backgroundColor: .green) {
-                                    print("Tapped!")
+                                    // TODO: Navigate user to Edit view
                                 }
                                 .allowSwipeToTrigger(false)
                                 .foregroundColor(.white)
@@ -37,7 +36,7 @@ struct ChildrenView: View {
                                     
                                     if let index = self.viewModel.children.firstIndex(where: { $0.id == item.id }) {
                                         self.viewModel.children.remove(at: Int(index.description)!)
-                                        SwiftAppDefaults.add(.childModels, self.viewModel.convertChildItemTtoChildModels(models: self.viewModel.children))
+                                        SwiftAppDefaults.add(.childModels, self.viewModel.convertChildItemToChildModels(models: self.viewModel.children))
                                     }
                                     
                                 }
@@ -46,7 +45,6 @@ struct ChildrenView: View {
                                 
                             }
                         }
-                        .cornerRadius(8)
                     }
                 }
                 .listStyle(PlainListStyle())
@@ -66,16 +64,12 @@ struct ChildrenView: View {
             }
         }
     }
-    
-    func deleteItems(at offsets: IndexSet) {
-        self.viewModel.children.remove(atOffsets: offsets)
-    }
 }
 
 extension ChildrenView: AddChildProtocol {
     func addedChild(child: ChildItem) {
         self.viewModel.children.append(child)
-        SwiftAppDefaults.add(.childModels, self.viewModel.convertChildItemTtoChildModels(models: self.viewModel.children))
+        SwiftAppDefaults.add(.childModels, self.viewModel.convertChildItemToChildModels(models: self.viewModel.children))
     }
 }
 
@@ -86,7 +80,7 @@ struct ChildrenView_Previews: PreviewProvider {
     }
     
     static func getViewModel() -> ChildrenView.ViewModel {
-        var viewModel = ChildrenView.ViewModel.init()
+        let viewModel = ChildrenView.ViewModel.init()
         viewModel.children = [.init(id: "123", name: "Test", age: 12, ageUnits: .months, note: "test")]
         
         return viewModel
