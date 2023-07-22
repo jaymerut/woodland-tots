@@ -10,6 +10,10 @@ import Foundation
 extension ScheduleView {
     class ViewModel: ObservableObject {
         
+        var model: ScheduleItem = .init()
+        var delegate: ScheduleFormProtocol?
+        var mode: FormMode = .add
+        
         init() {
 
         }
