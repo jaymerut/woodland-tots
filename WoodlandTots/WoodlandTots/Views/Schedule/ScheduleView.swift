@@ -36,18 +36,20 @@ struct ScheduleView: View {
                                             Text(String(self.calendar.component(.day, from: date)))
                                                 .fontWeight(.bold)
                                         }
-                                        VStack {
-                                            HStack {
+                                        if (viewModel.schedules.first(where: { DateHelper.isEqual(date1: $0.date, date2: date) }) != nil) {
+                                            VStack {
+                                                HStack {
+                                                    Spacer()
+                                                    VStack { }
+                                                        .frame(width: 3, height: 3)
+                                                        .background(.black)
+                                                        .clipShape(Circle())
+                                                }
+                                                .padding(.horizontal, 4)
                                                 Spacer()
-                                                VStack { }
-                                                    .frame(width: 3, height: 3)
-                                                    .background(.black)
-                                                    .clipShape(Circle())
                                             }
-                                            .padding(.horizontal, 4)
-                                            Spacer()
+                                            .padding(.vertical, 8)
                                         }
-                                        .padding(.vertical, 8)
                                     }
                                     
                                 )

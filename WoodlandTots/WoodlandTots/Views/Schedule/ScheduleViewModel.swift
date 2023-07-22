@@ -9,13 +9,12 @@ import Foundation
 
 extension ScheduleView {
     class ViewModel: ObservableObject {
-        
-        var model: ScheduleItem = .init()
-        var delegate: ScheduleFormProtocol?
-        var mode: FormMode = .add
+        @Published var schedules: [ScheduleItem] = [ScheduleItem]()
         
         init() {
-
+            self.schedules = [
+                .init(id: "1", date: .now, activities: [ActivityItem](), child: .init())
+            ]
         }
     }
 }
