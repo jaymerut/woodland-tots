@@ -20,42 +20,40 @@ struct ScheduleView: View {
     
     var body: some View {
         return NavigationStack() {
-                VStack {
-                    HStack() {
-                        CalendarView(interval: year) { date in
-                                Text("30")
-                                    .hidden()
-                                    .padding(8)
-                                    .background(Color.green)
-                                    .foregroundColor(.white)
-                                    .clipShape(RoundedRectangle(cornerRadius: 5))
-                                    .padding(.vertical, 4)
-                                    .overlay(
-                                        ZStack {
-                                            VStack {
-                                                Text(String(self.calendar.component(.day, from: date)))
-                                                    .fontWeight(.bold)
-                                            }
-                                            VStack {
-                                                HStack {
-                                                    Spacer()
-                                                    VStack { }
-                                                        .frame(width: 3, height: 3)
-                                                        .background(.black)
-                                                        .clipShape(Circle())
-                                                }
-                                                .padding(.horizontal, 4)
-                                                Spacer()
-                                            }
-                                            .padding(.vertical, 8)
+            VStack {
+                HStack() {
+                    CalendarView(interval: year) { date in
+                            Text("30")
+                                .hidden()
+                                .padding(8)
+                                .background(Color.green)
+                                .foregroundColor(.white)
+                                .clipShape(RoundedRectangle(cornerRadius: 5))
+                                .padding(.vertical, 4)
+                                .overlay(
+                                    ZStack {
+                                        VStack {
+                                            Text(String(self.calendar.component(.day, from: date)))
+                                                .fontWeight(.bold)
                                         }
-                                        
-                                    )
-                        }
+                                        VStack {
+                                            HStack {
+                                                Spacer()
+                                                VStack { }
+                                                    .frame(width: 3, height: 3)
+                                                    .background(.black)
+                                                    .clipShape(Circle())
+                                            }
+                                            .padding(.horizontal, 4)
+                                            Spacer()
+                                        }
+                                        .padding(.vertical, 8)
+                                    }
+                                    
+                                )
                     }
                 }
-                
-            
+            }
             .navigationTitle("Schedule")
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
