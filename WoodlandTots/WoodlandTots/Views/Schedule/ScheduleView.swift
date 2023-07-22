@@ -58,6 +58,19 @@ struct ScheduleView: View {
             
             .navigationTitle("Schedule")
             .navigationBarTitleDisplayMode(.inline)
+            .toolbar {
+                NavigationLink {
+                    
+                } label: {
+                    Image(systemName: "plus")
+                        .renderingMode(.template)
+                        .frame(width: 35, height: 35)
+                        .foregroundColor(.white)
+                        .background(Color.init(hex: 0x097969))
+                        .clipShape(Circle())
+                }
+                .buttonStyle(.automatic)
+            }
         }
     }
 }
