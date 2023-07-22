@@ -58,7 +58,7 @@ struct ScheduleView: View {
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 NavigationLink {
-                    
+                    ScheduleFormView(viewModel: .init(delegate: self, mode: .add))
                 } label: {
                     Image(systemName: "plus")
                         .renderingMode(.template)
@@ -70,6 +70,20 @@ struct ScheduleView: View {
                 .buttonStyle(.automatic)
             }
         }
+    }
+}
+
+extension ScheduleView: ScheduleFormProtocol {
+    func addSchedule(schedule: ScheduleItem) {
+        
+    }
+    
+    func editSchedule(schedule: ScheduleItem) {
+        
+    }
+    
+    func removeSchedule(schedule: ScheduleItem) {
+        
     }
 }
 
