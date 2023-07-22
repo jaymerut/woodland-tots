@@ -39,11 +39,10 @@ struct ScheduleView: View {
                                             VStack {
                                                 HStack {
                                                     Spacer()
-                                                    Image(systemName: "")
-                                                        .clipShape(Circle())
-                                                        .frame(width: 4, height: 4)
+                                                    VStack { }
+                                                        .frame(width: 3, height: 3)
                                                         .background(.black)
-                                                    
+                                                        .clipShape(Circle())
                                                 }
                                                 .padding(.horizontal, 4)
                                                 Spacer()
