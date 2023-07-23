@@ -13,6 +13,8 @@ struct ScheduleFormView: View {
     @ObservedObject var viewModel: ViewModel
     
     @State private var scheduleDate = Date.now
+    @State private var selectedChild: String = ""
+    @State private var selectedActivity: String = ""
     
     var body: some View {
         return NavigationStack() {
@@ -24,6 +26,27 @@ struct ScheduleFormView: View {
                             
                             DatePicker(selection: $scheduleDate, displayedComponents: .date) {
                                 Text("Schedule Date: ")
+                            }
+                            
+                            HStack {
+                                Text("Child:")
+                                Spacer()
+                                Picker("Please choose a child", selection: $selectedChild) {
+                                    ForEach(viewModel.children) {
+                                        Text($0.name)
+                                    }
+                                }
+                                
+                            }
+                            
+                            HStack {
+                                Text("Activity:")
+                                Spacer()
+                                Picker("Please choose an activity", selection: $selectedActivity) {
+                                    ForEach(viewModel.activities) {
+                                        Text($0.name)
+                                    }
+                                }
                             }
                             
                             Button() {

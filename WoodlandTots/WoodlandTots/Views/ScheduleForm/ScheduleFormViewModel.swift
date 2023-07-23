@@ -10,6 +10,8 @@ import Foundation
 extension ScheduleFormView {
     class ViewModel: ObservableObject {
         
+        var children: [ChildItem] = [ChildItem]()
+        var activities: [ActivityItem] = [ActivityItem]()
         var model: ScheduleItem = .init()
         var delegate: ScheduleFormProtocol?
         var mode: FormMode = .add
@@ -31,9 +33,15 @@ extension ScheduleFormView {
         }()
         
         init() {
-            
+            if let childModels = SwiftAppDefaults.get(.childModels, entityType: [ChildModel].self) as? [ChildModel] {
+                self.children = ChildModelMapper.convertChildModelsToChildItems(models: childModels)
+            }
+            if let activityModels = SwiftAppDefaults.get(.activityModels, entityType: [ActivityModel].self) as? [ActivityModel] {
+                self.activities = ActivityModelMapper.convertActivityModelsToActivityItems(models: activityModels)
+            }
         }
-        init(delegate: ScheduleFormProtocol, mode: FormMode) {
+        convenience init(delegate: ScheduleFormProtocol, mode: FormMode) {
+            self.init()
             self.delegate = delegate
             self.mode = mode
         }

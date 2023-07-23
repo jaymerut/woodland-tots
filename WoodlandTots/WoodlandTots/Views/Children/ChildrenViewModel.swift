@@ -14,26 +14,7 @@ extension ChildrenView {
         init() {
             guard let childModels = SwiftAppDefaults.get(.childModels, entityType: [ChildModel].self) as? [ChildModel] else { return }
             
-            self.children = self.convertChildModelsToChildItems(models: childModels)
-        }
-        
-        func convertChildItemToChildModels(models: [ChildItem]) -> [ChildModel] {
-            var result = [ChildModel]()
-            
-            for item in models {
-                result.append(.init(id: item.id, name: item.name, age: item.age, ageUnits: item.ageUnits, note: item.note))
-            }
-            
-            return result
-        }
-        func convertChildModelsToChildItems(models: [ChildModel]) -> [ChildItem] {
-            var result = [ChildItem]()
-            
-            for item in models {
-                result.append(.init(id: item.id, name: item.name, age: item.age, ageUnits: item.ageUnits, note: item.note))
-            }
-            
-            return result
+            self.children = ChildModelMapper.convertChildModelsToChildItems(models: childModels)
         }
     }
 }
