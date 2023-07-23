@@ -12,6 +12,8 @@ struct ScheduleFormView: View {
     @Environment(\.dismiss) private var dismiss
     @ObservedObject var viewModel: ViewModel
     
+    @State private var scheduleDate = Date.now
+    
     var body: some View {
         return NavigationStack() {
             VStack(alignment: .leading) {
@@ -20,6 +22,9 @@ struct ScheduleFormView: View {
                     HStack {
                         VStack {
                             
+                            DatePicker(selection: $scheduleDate, displayedComponents: .date) {
+                                Text("Schedule Date: ")
+                            }
                             
                             Button() {
                                 switch self.viewModel.mode {
