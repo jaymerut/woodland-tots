@@ -77,7 +77,8 @@ struct ScheduleView: View {
 
 extension ScheduleView: ScheduleFormProtocol {
     func addSchedule(schedule: ScheduleItem) {
-        
+        self.viewModel.schedules.append(schedule)
+        SwiftAppDefaults.add(.scheduleModels, ScheduleModelMapper.convertScheduleItemToScheduleModels(models: self.viewModel.schedules))
     }
     
     func editSchedule(schedule: ScheduleItem) {

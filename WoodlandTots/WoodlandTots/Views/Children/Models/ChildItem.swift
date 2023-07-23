@@ -7,7 +7,14 @@
 
 import Foundation
 
-class ChildItem: ObservableObject, Identifiable {
+class ChildItem: ObservableObject, Identifiable, Hashable {
+    static func == (lhs: ChildItem, rhs: ChildItem) -> Bool {
+        lhs.id == rhs.id
+    }
+    
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(id)
+    }
     
     var id: String = UUID().uuidString
     var name: String = ""

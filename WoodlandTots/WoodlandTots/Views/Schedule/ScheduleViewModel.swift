@@ -12,9 +12,9 @@ extension ScheduleView {
         @Published var schedules: [ScheduleItem] = [ScheduleItem]()
         
         init() {
-            self.schedules = [
-                .init(id: "1", date: .now, activities: [ActivityItem](), child: .init())
-            ]
+            guard let scheduleModel = SwiftAppDefaults.get(.scheduleModels, entityType: [ScheduleModel].self) as? [ScheduleModel] else { return }
+            
+            self.schedules = ScheduleModelMapper.convertScheduleModelsToScheduleItems(models: scheduleModel)
         }
     }
 }

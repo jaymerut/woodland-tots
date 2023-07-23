@@ -20,6 +20,9 @@ public class ActivityModel: Codable {
     var categoryType: CategoryType = .empty
     var description: String = ""
     
+    init() {
+        
+    }
     init(id: String, name: String, categoryType: CategoryType, description: String) {
         self.id = id
         self.name = name

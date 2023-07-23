@@ -13,8 +13,8 @@ struct ScheduleFormView: View {
     @ObservedObject var viewModel: ViewModel
     
     @State private var scheduleDate = Date.now
-    @State private var selectedChild: String = ""
-    @State private var selectedActivity: String = ""
+    @State private var selectedChild: ChildItem = .init()
+    @State private var selectedActivity: ActivityItem = .init()
     
     var body: some View {
         return NavigationStack() {
@@ -50,6 +50,10 @@ struct ScheduleFormView: View {
                             }
                             
                             Button() {
+                                self.viewModel.model.date = self.scheduleDate
+                                self.viewModel.model.child = self.selectedChild
+                                self.viewModel.model.activities = [self.selectedActivity]
+                                
                                 switch self.viewModel.mode {
                                 case .add:
                                     self.viewModel.delegate?.addSchedule(schedule: self.viewModel.model)
