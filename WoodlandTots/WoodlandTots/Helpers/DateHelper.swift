@@ -17,8 +17,8 @@ class DateHelper {
     }()
     
     static func isEqual(date1: Date, date2: Date) -> Bool {
-        var date1String = dateFormatter.string(from: date1)
-        var date2String = dateFormatter.string(from: date2)
+        let date1String = dateFormatter.string(from: date1)
+        let date2String = dateFormatter.string(from: date2)
         
         return date1String == date2String
     }
