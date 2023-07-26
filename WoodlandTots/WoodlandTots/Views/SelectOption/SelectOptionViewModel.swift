@@ -11,9 +11,11 @@ extension SelectOptionView {
     class ViewModel: ObservableObject {
         
         var type: SelectOptionType = .single
+        var options: [SelectOption] = [SelectOption]()
         
-        init(type: SelectOptionType = .single) {
+        init(type: SelectOptionType = .single, options: [SelectOption]) {
             self.type = type
+            self.options = options
         }
     }
     
