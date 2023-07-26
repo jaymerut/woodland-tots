@@ -9,7 +9,7 @@ import SwiftUI
 
 struct OptionCell: View {
     @ObservedObject var item: SelectOption
-    
+    var delegate: SelectOptionProtocol
     
     var body: some View {
         VStack(alignment: .leading) {
@@ -23,6 +23,6 @@ struct OptionCell: View {
 
 struct OptionCell_Previews: PreviewProvider {
     static var previews: some View {
-        OptionCell(item: .init(name: "test", value: "me"))
+        OptionCell(item: .init(name: "test", value: "me"), delegate: SelectOptionView(viewModel: .init(options: .init())))
     }
 }
