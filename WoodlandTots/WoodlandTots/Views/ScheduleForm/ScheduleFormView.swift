@@ -36,7 +36,6 @@ struct ScheduleFormView: View {
                                         Text($0.name)
                                     }
                                 }
-                                
                             }
                             
                             HStack {
