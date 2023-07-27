@@ -11,6 +11,7 @@ class SelectOption: ObservableObject, Identifiable {
     
     var name: String = ""
     var value: Any
+    var isSelected: Bool = false
     
     init(name: String, value: Any) {
         self.name = name

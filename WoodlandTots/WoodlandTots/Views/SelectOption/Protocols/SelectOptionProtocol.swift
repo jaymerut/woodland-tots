@@ -9,5 +9,4 @@ import Foundation
 
 protocol SelectOptionProtocol {
     func selectedOption(option: SelectOption)
-    func applyOptions(options: [SelectOption])
 }

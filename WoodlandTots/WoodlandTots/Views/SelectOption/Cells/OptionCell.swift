@@ -14,8 +14,11 @@ struct OptionCell: View {
     var body: some View {
         VStack(alignment: .leading) {
             HStack {
-                
+                Text(item.name)
             }
+        }
+        .onTapGesture {
+            delegate.selectedOption(option: item)
         }
         .padding(10)
     }
