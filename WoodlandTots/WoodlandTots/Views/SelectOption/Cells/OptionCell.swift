@@ -10,17 +10,37 @@ import SwiftUI
 struct OptionCell: View {
     @ObservedObject var item: SelectOption
     var delegate: SelectOptionProtocol
+    private let unselectedRadioImage = Image("radio_unselected")
+    private let selectedRadioImage = Image("radio_selected")
+    
+    @State private var radioImage = Image("radio_unselected")
     
     var body: some View {
         VStack(alignment: .leading) {
             HStack {
                 Text(item.name)
+                Spacer()
+                radioImage
+                    .onAppear(){
+                        self.setRadioImage()
+                    }
             }
         }
+        .contentShape(Rectangle())
         .onTapGesture {
+            self.setRadioImage()
             delegate.selectedOption(option: item)
         }
+        .frame(height: 40)
         .padding(10)
+    }
+    
+    private func setRadioImage() {
+        if (item.isSelected) {
+            radioImage = selectedRadioImage
+        } else {
+            radioImage = unselectedRadioImage
+        }
     }
 }
 
