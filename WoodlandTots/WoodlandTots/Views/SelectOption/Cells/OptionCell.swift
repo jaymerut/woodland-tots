@@ -28,8 +28,8 @@ struct OptionCell: View {
         }
         .contentShape(Rectangle())
         .onTapGesture {
-            self.setRadioImage()
             delegate.selectedOption(option: item)
+            self.setRadioImage()
         }
         .frame(height: 40)
         .padding(10)

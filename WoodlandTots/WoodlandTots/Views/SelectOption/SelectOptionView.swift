@@ -79,6 +79,6 @@ struct SelectOptionView_Previews: PreviewProvider {
         return array
     }
     private static func createTestModel(index: Int) -> SelectOption {
-        return .init(name: "Test\(index)", value: index)
+        return .init(name: "Test \(index)", value: index)
     }
 }
