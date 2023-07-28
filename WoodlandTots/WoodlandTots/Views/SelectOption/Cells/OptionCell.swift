@@ -9,7 +9,7 @@ import SwiftUI
 
 struct OptionCell: View {
     @ObservedObject var item: SelectOption
-    var delegate: SelectOptionProtocol
+    var delegate: OptionCellProtocol
     private let unselectedRadioImage = Image("radio_unselected")
     private let selectedRadioImage = Image("radio_selected")
     
@@ -46,6 +46,6 @@ struct OptionCell: View {
 
 struct OptionCell_Previews: PreviewProvider {
     static var previews: some View {
-        OptionCell(item: .init(name: "test", value: "me"), delegate: SelectOptionView(viewModel: .init(options: .init())))
+        OptionCell(item: .init(name: "test", value: "me"), delegate: SelectOptionView(viewModel: .init(options: .init()), delegate: ScheduleFormView(viewModel: .init())))
     }
 }

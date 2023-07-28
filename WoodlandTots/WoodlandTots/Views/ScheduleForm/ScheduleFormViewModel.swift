@@ -31,6 +31,20 @@ extension ScheduleFormView {
                 return "Edit Schedule"
             }
         }()
+        lazy var childrenOptions: [SelectOption] = {
+            var options = [SelectOption]()
+            for child in children {
+                options.append(.init(name: child.name, value: child))
+            }
+            return options
+        }()
+        lazy var activityOptions: [SelectOption] = {
+            var options = [SelectOption]()
+            for activity in activities {
+                options.append(.init(name: activity.name, value: activity))
+            }
+            return options
+        }()
         
         init() {
             if let childModels = SwiftAppDefaults.get(.childModels, entityType: [ChildModel].self) as? [ChildModel] {

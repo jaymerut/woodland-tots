@@ -11,6 +11,9 @@ struct SelectOptionView: View {
     
     @Environment(\.dismiss) private var dismiss
     @ObservedObject var viewModel: ViewModel
+    var delegate: SelectOptionProtocol
+    
+    @State private var isSingleSelect = false
     
     var body: some View {
         return NavigationView() {
@@ -46,9 +49,15 @@ struct SelectOptionView: View {
                     .frame(maxWidth: .infinity, maxHeight: 60.0)
                     .cornerRadius(12)
                     .padding(.top, 5)
+                    .onAppear() {
+                        if self.viewModel.type == .single {
+                            self.isSingleSelect = true
+                        }
+                    }
                 }
                 .padding(.horizontal, 10)
                 .padding(.bottom, 5)
+                .opacity(self.isSingleSelect ? 0 : 1)
                 
             }
             .navigationTitle("Select an Option")
@@ -57,11 +66,12 @@ struct SelectOptionView: View {
     }
     
     private func apply(options: [SelectOption]) {
+        self.delegate.apply(options: options)
         dismiss()
     }
 }
 
-extension SelectOptionView: SelectOptionProtocol {
+extension SelectOptionView: OptionCellProtocol {
     func selectedOption(option: SelectOption) {
         option.isSelected.toggle()
         
@@ -73,7 +83,7 @@ extension SelectOptionView: SelectOptionProtocol {
 
 struct SelectOptionView_Previews: PreviewProvider {
     static var previews: some View {
-        SelectOptionView(viewModel: .init(type: .single, options: self.createTestModelArray()))
+        SelectOptionView(viewModel: .init(type: .multi, options: self.createTestModelArray()), delegate: ScheduleFormView(viewModel: .init()))
     }
     private static func createTestModelArray() -> [SelectOption] {
         var array = [SelectOption]()

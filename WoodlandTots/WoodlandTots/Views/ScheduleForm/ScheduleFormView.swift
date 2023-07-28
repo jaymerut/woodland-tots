@@ -15,6 +15,8 @@ struct ScheduleFormView: View {
     @State private var scheduleDate = Date.now
     @State private var selectedChild: ChildItem = .init()
     @State private var selectedActivity: ActivityItem = .init()
+    @State private var childText: String = "No child selected"
+    @State private var activityText: String = "0 activities selected"
     
     var body: some View {
         return NavigationStack() {
@@ -30,21 +32,41 @@ struct ScheduleFormView: View {
                             
                             HStack {
                                 Text("Child:")
+                                    .padding(.trailing, 10)
                                 Spacer()
-                                Picker("Please choose a child", selection: $selectedChild) {
-                                    ForEach(viewModel.children) {
-                                        Text($0.name)
+                                NavigationLink {
+                                    SelectOptionView(viewModel: .init(options: self.viewModel.childrenOptions), delegate: self)
+                                } label: {
+                                    HStack {
+                                        Spacer()
+                                        Text(childText)
+                                        Image("right_arrow")
                                     }
+                                    .padding(.vertical, 5)
+                                    .overlay(
+                                        RoundedRectangle(cornerRadius: 8)
+                                            .stroke(.black, lineWidth: 1)
+                                    )
                                 }
                             }
                             
                             HStack {
                                 Text("Activity:")
+                                    .padding(.trailing, 10)
                                 Spacer()
-                                Picker("Please choose an activity", selection: $selectedActivity) {
-                                    ForEach(viewModel.activities) {
-                                        Text($0.name)
+                                NavigationLink {
+                                    SelectOptionView(viewModel: .init(type: .multi, options: self.viewModel.activityOptions), delegate: self)
+                                } label: {
+                                    HStack {
+                                        Spacer()
+                                        Text(activityText)
+                                        Image("right_arrow")
                                     }
+                                    .padding(.vertical, 5)
+                                    .overlay(
+                                        RoundedRectangle(cornerRadius: 8)
+                                            .stroke(.black, lineWidth: 1)
+                                    )
                                 }
                             }
                             
@@ -84,6 +106,13 @@ struct ScheduleFormView: View {
             .navigationBarTitleDisplayMode(.inline)
         }
         .padding(.horizontal, 20)
+    }
+}
+
+extension ScheduleFormView: SelectOptionProtocol {
+    
+    func apply(options: [SelectOption]) {
+        
     }
 }
 
