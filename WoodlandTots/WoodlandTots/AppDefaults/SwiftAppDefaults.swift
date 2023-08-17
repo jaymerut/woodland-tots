@@ -10,6 +10,7 @@ import Foundation
 public enum SwiftAppKeys: String {
     case childModels = "AppDefaults.Keys.childModels"
     case activityModels = "AppDefaults.Keys.activityModels"
+    case scheduleModels = "AppDefaults.Keys.scheduleModels"
 }
 
 protocol SwiftAppDefaultsProtocol {

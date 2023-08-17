@@ -7,8 +7,16 @@
 
 import SwiftUI
 
-class ActivityItem: ObservableObject, Identifiable {
+class ActivityItem: ObservableObject, Identifiable, Hashable {
 
+    static func == (lhs: ActivityItem, rhs: ActivityItem) -> Bool {
+        lhs.id == rhs.id
+    }
+    
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(id)
+    }
+    
     var id: String = UUID().uuidString
     var name: String = ""
     var categoryType: CategoryType = .empty

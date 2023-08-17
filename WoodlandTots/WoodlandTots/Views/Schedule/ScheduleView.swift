@@ -21,26 +21,72 @@ struct ScheduleView: View {
     var body: some View {
         return NavigationStack() {
             VStack {
-                CalendarView(interval: year) { date in
-                    Text("30")
-                        .hidden()
-                        .padding(8)
-                        .background(Color.green)
-                        .clipShape(RoundedRectangle(cornerRadius: 5))
-                        .padding(.vertical, 4)
-                        .overlay(
-                            VStack {
-                                Text(String(self.calendar.component(.day, from: date)))
-                                    .fontWeight(.bold)
-                            }
-                        )
+                HStack() {
+                    CalendarView(interval: year) { date in
+                            Text("30")
+                                .hidden()
+                                .padding(8)
+                                .background(Color.green)
+                                .foregroundColor(.white)
+                                .clipShape(RoundedRectangle(cornerRadius: 5))
+                                .padding(.vertical, 4)
+                                .overlay(
+                                    ZStack {
+                                        VStack {
+                                            Text(String(self.calendar.component(.day, from: date)))
+                                                .fontWeight(.bold)
+                                        }
+                                        if (viewModel.schedules.first(where: { DateHelper.isEqual(date1: $0.date, date2: date) }) != nil) {
+                                            VStack {
+                                                HStack {
+                                                    Spacer()
+                                                    VStack { }
+                                                        .frame(width: 3, height: 3)
+                                                        .background(.black)
+                                                        .clipShape(Circle())
+                                                }
+                                                .padding(.horizontal, 4)
+                                                Spacer()
+                                            }
+                                            .padding(.vertical, 8)
+                                        }
+                                    }
+                                    
+                                )
+                    }
                 }
-                .background(Color.blue)
-                Spacer()
             }
             .navigationTitle("Schedule")
-            
+            .navigationBarTitleDisplayMode(.inline)
+            .toolbar {
+                NavigationLink {
+                    ScheduleFormView(viewModel: .init(delegate: self, mode: .add))
+                } label: {
+                    Image(systemName: "plus")
+                        .renderingMode(.template)
+                        .frame(width: 35, height: 35)
+                        .foregroundColor(.white)
+                        .background(Color.init(hex: 0x097969))
+                        .clipShape(Circle())
+                }
+                .buttonStyle(.automatic)
+            }
         }
+    }
+}
+
+extension ScheduleView: ScheduleFormProtocol {
+    func addSchedule(schedule: ScheduleItem) {
+        self.viewModel.schedules.append(schedule)
+        SwiftAppDefaults.add(.scheduleModels, ScheduleModelMapper.convertScheduleItemToScheduleModels(models: self.viewModel.schedules))
+    }
+    
+    func editSchedule(schedule: ScheduleItem) {
+        
+    }
+    
+    func removeSchedule(schedule: ScheduleItem) {
+        
     }
 }
 

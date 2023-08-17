@@ -24,6 +24,10 @@ public class ChildModel: Codable {
     var ageString: String = ""
     var note: String = ""
     
+    init() {
+        
+    }
+    
     init(id: String, name: String, age: Int, ageUnits: AgeType, note: String) {
         self.id = id
         self.name = name

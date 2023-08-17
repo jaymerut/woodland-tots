@@ -32,10 +32,13 @@ struct MonthView<DateView>: View where DateView: View {
     }
 
     var body: some View {
-        VStack {
-            Text(DateFormatter.month.string(from: month)).padding(.top, 10)
-            ForEach(weeks, id: \.self) { week in
-                WeekView(week: week, content: self.content)
+        HStack(alignment: .top) {
+            VStack {
+                Text(DateFormatter.month.string(from: month)).padding(.top, 10)
+                ForEach(weeks, id: \.self) { week in
+                    WeekView(week: week, content: self.content)
+                }
+                Spacer()
             }
         }
     }

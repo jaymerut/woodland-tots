@@ -50,7 +50,7 @@ extension ActivitiesView: ActivityFormProtocol {
 
     func addActivity(activity: ActivityItem) {
         self.viewModel.activities.append(activity)
-        SwiftAppDefaults.add(.activityModels, self.viewModel.convertActivityItemToActivityModels(models: self.viewModel.activities))
+        SwiftAppDefaults.add(.activityModels, ActivityModelMapper.convertActivityItemToActivityModels(models: self.viewModel.activities))
     }
     
     func editActivity(activity: ActivityItem) {
@@ -58,14 +58,14 @@ extension ActivitiesView: ActivityFormProtocol {
             self.viewModel.activities.insert(activity, at: row)
             self.viewModel.activities.remove(at: row)
             
-            SwiftAppDefaults.add(.activityModels, self.viewModel.convertActivityItemToActivityModels(models: self.viewModel.activities))
+            SwiftAppDefaults.add(.activityModels, ActivityModelMapper.convertActivityItemToActivityModels(models: self.viewModel.activities))
         }
     }
     
     func removeActivity(activity: ActivityItem) {
         if let row = self.viewModel.activities.firstIndex(where: { $0.id == activity.id }) {
             self.viewModel.activities.remove(at: row)
-            SwiftAppDefaults.add(.activityModels, self.viewModel.convertActivityItemToActivityModels(models: self.viewModel.activities))
+            SwiftAppDefaults.add(.activityModels, ActivityModelMapper.convertActivityItemToActivityModels(models: self.viewModel.activities))
         }
     }
 }

@@ -51,20 +51,20 @@ struct ChildrenView: View {
 extension ChildrenView: ChildFormProtocol {
     func addChild(child: ChildItem) {
         self.viewModel.children.append(child)
-        SwiftAppDefaults.add(.childModels, self.viewModel.convertChildItemToChildModels(models: self.viewModel.children))
+        SwiftAppDefaults.add(.childModels, ChildModelMapper.convertChildItemToChildModels(models: self.viewModel.children))
     }
     
     func editChild(child: ChildItem) {
         if let row = self.viewModel.children.firstIndex(where: { $0.id == child.id }) {
             self.viewModel.children[row] = child
-            SwiftAppDefaults.add(.childModels, self.viewModel.convertChildItemToChildModels(models: self.viewModel.children))
+            SwiftAppDefaults.add(.childModels, ChildModelMapper.convertChildItemToChildModels(models: self.viewModel.children))
         }
     }
     
     func removeChild(child: ChildItem) {
         if let row = self.viewModel.children.firstIndex(where: { $0.id == child.id }) {
             self.viewModel.children.remove(at: row)
-            SwiftAppDefaults.add(.activityModels, self.viewModel.convertChildItemToChildModels(models: self.viewModel.children))
+            SwiftAppDefaults.add(.activityModels, ChildModelMapper.convertChildItemToChildModels(models: self.viewModel.children))
         }
     }
 }
