@@ -12,10 +12,16 @@ extension SelectOptionView {
         
         var type: SelectOptionType = .single
         var options: [SelectOption] = [SelectOption]()
+        var oldOptions: [SelectOption] = [SelectOption]()
+        var valueType: T.Type
         
-        init(type: SelectOptionType = .single, options: [SelectOption]) {
+        init(type: SelectOptionType = .single, options: [SelectOption], valueType: T.Type) {
             self.type = type
             self.options = options
+            for option in options {
+                self.oldOptions.append(.init(name: option.name, value: option.value, isSelected: option.isSelected))
+            }
+            self.valueType = valueType
         }
     }
     

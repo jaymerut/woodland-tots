@@ -35,7 +35,7 @@ struct ScheduleFormView: View {
                                     .padding(.trailing, 10)
                                 Spacer()
                                 NavigationLink {
-                                    SelectOptionView(viewModel: .init(options: self.viewModel.childrenOptions), delegate: self)
+                                    SelectOptionView<ChildItem>(viewModel: .init(options: self.viewModel.childrenOptions, valueType: ChildItem.self), delegate: self)
                                 } label: {
                                     HStack {
                                         Spacer()
@@ -55,7 +55,7 @@ struct ScheduleFormView: View {
                                     .padding(.trailing, 10)
                                 Spacer()
                                 NavigationLink {
-                                    SelectOptionView(viewModel: .init(type: .multi, options: self.viewModel.activityOptions), delegate: self)
+                                    SelectOptionView<ActivityItem>(viewModel: .init(type: .multi, options: self.viewModel.activityOptions, valueType: ActivityItem.self), delegate: self)
                                 } label: {
                                     HStack {
                                         Spacer()
@@ -111,8 +111,23 @@ struct ScheduleFormView: View {
 
 extension ScheduleFormView: SelectOptionProtocol {
     
-    func apply(options: [SelectOption]) {
-        
+    func apply<T>(options: [SelectOption], valueType: T.Type) {
+        if valueType is ChildItem.Type {
+            if let child = options.first, let item = child.value as? ChildItem {
+                self.viewModel.model.child = item
+                
+                self.childText = child.name
+            }
+        } else if valueType is ActivityItem.Type {
+            var activities = [ActivityItem]()
+            for option in options {
+                if let item = option.value as? ActivityItem {
+                    activities.append(item)
+                }
+            }
+            self.viewModel.model.activities = activities
+            self.activityText = "\(activities.count) activit\(activities.count > 1 ? "ies" : "y") selected"
+        }
     }
 }
 

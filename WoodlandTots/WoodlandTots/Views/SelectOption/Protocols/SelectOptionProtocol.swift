@@ -8,5 +8,5 @@
 import Foundation
 
 protocol SelectOptionProtocol {
-    func apply(options: [SelectOption])
+    func apply<T>(options: [SelectOption], valueType: T.Type)
 }

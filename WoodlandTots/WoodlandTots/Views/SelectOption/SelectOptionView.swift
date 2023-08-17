@@ -7,13 +7,14 @@
 
 import SwiftUI
 
-struct SelectOptionView: View {
+struct SelectOptionView<T>: View {
     
     @Environment(\.dismiss) private var dismiss
-    @ObservedObject var viewModel: ViewModel
+    var viewModel: ViewModel
     var delegate: SelectOptionProtocol
     
     @State private var isSingleSelect = false
+    @State private var isApplied = false
     
     var body: some View {
         return NavigationView() {
@@ -37,7 +38,7 @@ struct SelectOptionView: View {
                     Button() {
                         self.apply(options: self.viewModel.options.filter( {$0.isSelected} ))
                     } label: {
-                        Text("APPLY")
+                        Text("Apply")
                             .frame(minWidth: 0, maxWidth: .infinity)
                             .font(.system(size: 22))
                             .padding()
@@ -63,10 +64,27 @@ struct SelectOptionView: View {
             .navigationTitle("Select an Option")
             .navigationBarTitleDisplayMode(.inline)
         }
+        .onAppear() {
+            if !self.isApplied {
+                self.viewModel.options = self.viewModel.oldOptions
+                for option in self.viewModel.options {
+                    option.isSelected = false
+                }
+            }
+        }
+        .onDisappear() {
+            if !self.isApplied {
+                self.viewModel.options = self.viewModel.oldOptions
+                for option in self.viewModel.options {
+                    option.isSelected = false
+                }
+            }
+        }
     }
     
     private func apply(options: [SelectOption]) {
-        self.delegate.apply(options: options)
+        self.delegate.apply(options: options, valueType: T.self)
+        self.isApplied = true
         dismiss()
     }
 }
@@ -76,6 +94,11 @@ extension SelectOptionView: OptionCellProtocol {
         option.isSelected.toggle()
         
         if viewModel.type == .single {
+            for vmOption in self.viewModel.options {
+                if vmOption.id != option.id {
+                    vmOption.isSelected = false
+                }
+            }
             self.apply(options: [option])
         }
     }
@@ -83,7 +106,7 @@ extension SelectOptionView: OptionCellProtocol {
 
 struct SelectOptionView_Previews: PreviewProvider {
     static var previews: some View {
-        SelectOptionView(viewModel: .init(type: .multi, options: self.createTestModelArray()), delegate: ScheduleFormView(viewModel: .init()))
+        SelectOptionView<String>(viewModel: SelectOptionView.ViewModel.init(type: .multi, options: self.createTestModelArray(), valueType: String.self), delegate: ScheduleFormView(viewModel: .init()))
     }
     private static func createTestModelArray() -> [SelectOption] {
         var array = [SelectOption]()

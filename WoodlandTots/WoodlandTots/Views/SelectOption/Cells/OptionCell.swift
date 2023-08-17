@@ -21,9 +21,6 @@ struct OptionCell: View {
                 Text(item.name)
                 Spacer()
                 radioImage
-                    .onAppear(){
-                        self.setRadioImage()
-                    }
             }
         }
         .contentShape(Rectangle())
@@ -33,6 +30,9 @@ struct OptionCell: View {
         }
         .frame(height: 40)
         .padding(10)
+        .onAppear(){
+            self.setRadioImage()
+        }
     }
     
     private func setRadioImage() {
@@ -46,6 +46,6 @@ struct OptionCell: View {
 
 struct OptionCell_Previews: PreviewProvider {
     static var previews: some View {
-        OptionCell(item: .init(name: "test", value: "me"), delegate: SelectOptionView(viewModel: .init(options: .init()), delegate: ScheduleFormView(viewModel: .init())))
+        OptionCell(item: .init(name: "test", value: "me"), delegate: SelectOptionView<String>(viewModel: .init(options: .init(), valueType: String.self), delegate: ScheduleFormView(viewModel: .init())))
     }
 }

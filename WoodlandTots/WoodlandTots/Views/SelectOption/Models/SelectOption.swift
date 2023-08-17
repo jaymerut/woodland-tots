@@ -9,6 +9,7 @@ import Foundation
 
 class SelectOption: ObservableObject, Identifiable {
     
+    var id: UUID = .init()
     var name: String = ""
     var value: Any
     var isSelected: Bool = false
@@ -16,5 +17,9 @@ class SelectOption: ObservableObject, Identifiable {
     init(name: String, value: Any) {
         self.name = name
         self.value = value
+    }
+    convenience init(name: String, value: Any, isSelected: Bool) {
+        self.init(name: name, value: value)
+        self.isSelected = isSelected
     }
 }
