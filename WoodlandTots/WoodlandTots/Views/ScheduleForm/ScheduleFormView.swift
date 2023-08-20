@@ -40,6 +40,11 @@ struct ScheduleFormView: View {
                                     HStack {
                                         Spacer()
                                         Text(childText)
+                                        .onAppear() {
+                                            if !self.viewModel.model.child.name.isEmpty {
+                                                self.childText = self.viewModel.model.child.name
+                                            }
+                                        }
                                         Image("right_arrow")
                                     }
                                     .padding(.vertical, 5)
@@ -60,6 +65,11 @@ struct ScheduleFormView: View {
                                     HStack {
                                         Spacer()
                                         Text(activityText)
+                                        .onAppear() {
+                                            if !self.viewModel.model.activities.isEmpty {
+                                                self.activityText = "\(self.viewModel.model.activities.count) activit\(self.viewModel.model.activities.count > 1 ? "ies" : "y") selected"
+                                            }
+                                        }
                                         Image("right_arrow")
                                     }
                                     .padding(.vertical, 5)
