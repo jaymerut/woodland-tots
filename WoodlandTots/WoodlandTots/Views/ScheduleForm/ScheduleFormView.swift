@@ -14,7 +14,7 @@ struct ScheduleFormView: View {
     
     @State private var scheduleDate = Date.now
     @State private var selectedChild: ChildItem = .init()
-    @State private var selectedActivity: ActivityItem = .init()
+    @State private var selectedActivities: [ActivityItem] = [.init()]
     @State private var childText: String = "No child selected"
     @State private var activityText: String = "0 activities selected"
     
@@ -83,7 +83,7 @@ struct ScheduleFormView: View {
                             Button() {
                                 self.viewModel.model.date = self.scheduleDate
                                 self.viewModel.model.child = self.selectedChild
-                                self.viewModel.model.activities = [self.selectedActivity]
+                                self.viewModel.model.activities = self.selectedActivities
                                 
                                 switch self.viewModel.mode {
                                 case .add:
@@ -112,6 +112,9 @@ struct ScheduleFormView: View {
                 }
                 .frame(maxHeight: .infinity)
             }
+            .onAppear() {
+                self.viewModel.updateViewModel()
+            }
             .navigationTitle(self.viewModel.submitText)
             .navigationBarTitleDisplayMode(.inline)
         }
@@ -124,6 +127,7 @@ extension ScheduleFormView: SelectOptionProtocol {
     func apply<T>(options: [SelectOption], valueType: T.Type) {
         if valueType is ChildItem.Type {
             if let child = options.first, let item = child.value as? ChildItem {
+                self.selectedChild = item
                 self.viewModel.model.child = item
                 
                 self.childText = child.name
@@ -135,6 +139,7 @@ extension ScheduleFormView: SelectOptionProtocol {
                     activities.append(item)
                 }
             }
+            self.selectedActivities = activities
             self.viewModel.model.activities = activities
             self.activityText = "\(activities.count) activit\(activities.count > 1 ? "ies" : "y") selected"
         }

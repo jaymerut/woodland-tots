@@ -11,13 +11,16 @@ struct MonthView<DateView>: View where DateView: View {
     @Environment(\.calendar) var calendar
 
     let month: Date
+    let delegate: ScheduleViewProtocol
     let content: (Date) -> DateView
 
     init(
         month: Date,
+        delegate: ScheduleViewProtocol,
         @ViewBuilder content: @escaping (Date) -> DateView
     ) {
         self.month = month
+        self.delegate = delegate
         self.content = content
     }
 
@@ -36,7 +39,7 @@ struct MonthView<DateView>: View where DateView: View {
             VStack {
                 Text(DateFormatter.month.string(from: month)).padding(.top, 10)
                 ForEach(weeks, id: \.self) { week in
-                    WeekView(week: week, content: self.content)
+                    WeekView(week: week, delegate: self.delegate, content: self.content)
                 }
                 Spacer()
             }

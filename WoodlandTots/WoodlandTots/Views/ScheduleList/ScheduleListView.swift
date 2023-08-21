@@ -26,9 +26,9 @@ struct ScheduleListView: View {
                 .listStyle(PlainListStyle())
                 .padding(.top, 10)
             }
-            .navigationTitle("Schedules")
-            .navigationBarTitleDisplayMode(.inline)
         }
+        .navigationTitle("Schedules")
+        .navigationBarTitleDisplayMode(.inline)
     }
 }
 
@@ -42,7 +42,7 @@ extension ScheduleListView: ScheduleFormProtocol {
             self.viewModel.schedules.insert(schedule, at: row)
             self.viewModel.schedules.remove(at: row)
             
-            SwiftAppDefaults.add(.activityModels, ScheduleModelMapper.convertScheduleItemToScheduleModels(models: self.viewModel.schedules))
+            SwiftAppDefaults.add(.scheduleModels, ScheduleModelMapper.convertScheduleItemToScheduleModels(models: self.viewModel.schedules))
         }
     }
     

@@ -12,13 +12,16 @@ struct CalendarView<DateView>: View where DateView: View {
     @State var selection = 0
 
     let interval: DateInterval
+    let delegate: ScheduleViewProtocol
     let content: (Date) -> DateView
 
     init(
         interval: DateInterval,
+        delegate: ScheduleViewProtocol,
         @ViewBuilder content: @escaping (Date) -> DateView
     ) {
         self.interval = interval
+        self.delegate = delegate
         self.content = content
     }
 
@@ -32,7 +35,7 @@ struct CalendarView<DateView>: View where DateView: View {
 
     var body: some View {
         VStack {
-            MultiPageView(pages: months.map({ MonthView(month: $0, content: self.content) }), currentPageIndex: $selection)
+            MultiPageView(pages: months.map({ MonthView(month: $0, delegate: self.delegate, content: self.content) }), currentPageIndex: $selection)
                 .onAppear {
                     self.selection = months.firstIndex(where: { DateFormatter.month.string(from: $0) == DateFormatter.month.string(from: Date()) }) ?? 0
                 }
