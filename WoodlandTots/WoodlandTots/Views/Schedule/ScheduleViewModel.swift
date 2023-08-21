@@ -12,6 +12,10 @@ extension ScheduleView {
         @Published var schedules: [ScheduleItem] = [ScheduleItem]()
         
         init() {
+            self.updateViewModel()
+        }
+        
+        public func updateViewModel() {
             guard let scheduleModel = SwiftAppDefaults.get(.scheduleModels, entityType: [ScheduleModel].self) as? [ScheduleModel] else { return }
             
             self.schedules = ScheduleModelMapper.convertScheduleModelsToScheduleItems(models: scheduleModel)

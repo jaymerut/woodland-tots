@@ -47,12 +47,7 @@ extension ScheduleFormView {
         }()
         
         init() {
-            if let childModels = SwiftAppDefaults.get(.childModels, entityType: [ChildModel].self) as? [ChildModel] {
-                self.children = ChildModelMapper.convertChildModelsToChildItems(models: childModels)
-            }
-            if let activityModels = SwiftAppDefaults.get(.activityModels, entityType: [ActivityModel].self) as? [ActivityModel] {
-                self.activities = ActivityModelMapper.convertActivityModelsToActivityItems(models: activityModels)
-            }
+            self.updateViewModel()
         }
         convenience init(delegate: ScheduleFormProtocol, mode: FormMode) {
             self.init()
@@ -62,7 +57,15 @@ extension ScheduleFormView {
         convenience init(model: ScheduleItem, delegate: ScheduleFormProtocol, mode: FormMode) {
             self.init(delegate: delegate, mode: mode)
             self.model = model
-            
+        }
+        
+        public func updateViewModel() {
+            if let childModels = SwiftAppDefaults.get(.childModels, entityType: [ChildModel].self) as? [ChildModel] {
+                self.children = ChildModelMapper.convertChildModelsToChildItems(models: childModels)
+            }
+            if let activityModels = SwiftAppDefaults.get(.activityModels, entityType: [ActivityModel].self) as? [ActivityModel] {
+                self.activities = ActivityModelMapper.convertActivityModelsToActivityItems(models: activityModels)
+            }
         }
     }
 }

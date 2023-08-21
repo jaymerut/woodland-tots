@@ -11,13 +11,16 @@ struct WeekView<DateView>: View where DateView: View {
     @Environment(\.calendar) var calendar
 
     let week: Date
+    let delegate: ScheduleViewProtocol
     let content: (Date) -> DateView
 
     init(
         week: Date,
+        delegate: ScheduleViewProtocol,
         @ViewBuilder content: @escaping (Date) -> DateView
     ) {
         self.week = week
+        self.delegate = delegate
         self.content = content
     }
 
@@ -36,8 +39,11 @@ struct WeekView<DateView>: View where DateView: View {
             ForEach(days, id: \.self) { date in
                 HStack {
                     if self.calendar.isDate(self.week, equalTo: date, toGranularity: .month) {
-                        NavigationLink(destination: Text("Second view: \(date.description)")) {
-                            self.content(date)
+                        let dateSchedules = self.delegate.getSchedules(date: date)
+                        if dateSchedules.count > 0 {
+                            NavigationLink(destination: ScheduleListView(viewModel: .init(schedules: dateSchedules))) { content(date) }
+                        } else {
+                            content(date)
                         }
                     } else {
                         self.content(date).hidden()

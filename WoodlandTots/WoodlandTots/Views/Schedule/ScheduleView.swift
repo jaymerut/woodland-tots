@@ -22,7 +22,7 @@ struct ScheduleView: View {
         return NavigationStack() {
             VStack {
                 HStack() {
-                    CalendarView(interval: year) { date in
+                    CalendarView(interval: year, delegate: self) { date in
                             Text("30")
                                 .hidden()
                                 .padding(8)
@@ -56,6 +56,9 @@ struct ScheduleView: View {
                     }
                 }
             }
+            .onAppear() {
+                self.viewModel.updateViewModel()
+            }
             .navigationTitle("Schedule")
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
@@ -72,6 +75,15 @@ struct ScheduleView: View {
                 .buttonStyle(.automatic)
             }
         }
+    }
+}
+
+extension ScheduleView: ScheduleViewProtocol {
+    func getSchedules(date: Date) -> [ScheduleItem] {
+        let test = self.viewModel.schedules
+        let schedules = self.viewModel.schedules.filter({ DateHelper.isEqual(date1: $0.date, date2: date) == true })
+        
+        return schedules
     }
 }
 
