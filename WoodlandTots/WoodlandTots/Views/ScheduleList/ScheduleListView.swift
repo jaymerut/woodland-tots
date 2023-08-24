@@ -16,11 +16,19 @@ struct ScheduleListView: View {
             VStack() {
                 List {
                     ForEach(viewModel.schedules) { item in
-                        ScheduleCell(item: item, delegate: self)
-                            .listRowInsets(.init(top: 5, leading: 5, bottom: 5, trailing: 5))
-                            .buttonStyle(PlainButtonStyle())
-                            .listRowBackground(Color.clear)
-                            .listRowSeparator(.hidden)
+                        ZStack {
+                            NavigationLink {
+                                ChildSummaryView(viewModel: .init(schedule: item))
+                            } label: {
+                                EmptyView()
+                            }
+                            
+                            ScheduleCell(item: item, delegate: self)
+                                .listRowInsets(.init(top: 5, leading: 5, bottom: 5, trailing: 5))
+                                .buttonStyle(PlainButtonStyle())
+                                .listRowBackground(Color.clear)
+                                .listRowSeparator(.hidden)
+                        }
                     }
                 }
                 .listStyle(PlainListStyle())

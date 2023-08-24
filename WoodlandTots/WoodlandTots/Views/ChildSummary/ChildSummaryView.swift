@@ -14,7 +14,7 @@ struct ChildSummaryView: View {
     var body: some View {
         VStack(alignment: .leading) {
             Text(viewModel.schedule.child.name)
-                .font(FontHelper.fontHelveticaBold(36))
+                .font(FontHelper.fontHelveticaBold(32))
                 .multilineTextAlignment(.leading)
                 .frame(maxWidth: .infinity, alignment: .leading)
             
@@ -42,6 +42,8 @@ struct ChildSummaryView: View {
         }
         .padding(.vertical, 10)
         .padding(.horizontal, 20)
+        .navigationTitle("Summary")
+        .navigationBarTitleDisplayMode(.inline)
     }
 }
 
