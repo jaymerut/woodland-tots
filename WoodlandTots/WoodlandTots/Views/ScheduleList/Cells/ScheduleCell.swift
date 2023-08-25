@@ -12,11 +12,19 @@ struct ScheduleCell: View {
     var delegate: ScheduleFormProtocol
     
     @State private var isPresentingEdit = false
+    @State private var isPresentingActivities = false
     @State private var isPresentingMeals = false
+    @State private var isPresentingNaps = false
+    
+    @State private var activityOptions = [SelectOption]()
     
     var body: some View {
         ZStack {
             NavigationLink(destination: ScheduleFormView(viewModel: .init(model: item, delegate: self.delegate, mode: .edit)), isActive: $isPresentingEdit) {}
+                    .frame(width: 0, height: 0)
+                    .hidden()
+            
+            NavigationLink(destination: SelectOptionView<ActivityItem>(viewModel: .init(type: .multi, options: activityOptions, valueType: ActivityItem.self), delegate: self).onAppear{ activityOptions = self.getActivityOptions() }, isActive: $isPresentingActivities) {}
                     .frame(width: 0, height: 0)
                     .hidden()
             
@@ -84,7 +92,7 @@ struct ScheduleCell: View {
                     
                     HStack {
                         Button() {
-                            isPresentingMeals.toggle()
+                            isPresentingActivities.toggle()
                         } label: {
                             Image(systemName: "star.fill")
                                 .renderingMode(.template)
@@ -110,7 +118,7 @@ struct ScheduleCell: View {
                     
                     HStack {
                         Button() {
-                            isPresentingMeals.toggle()
+                            isPresentingNaps.toggle()
                         } label: {
                             Image(systemName: "powersleep")
                                 .renderingMode(.template)
@@ -129,6 +137,29 @@ struct ScheduleCell: View {
         
     }
         
+    private func getActivityOptions() -> [SelectOption] {
+        var options = [SelectOption]()
+        for activity in ScheduleHelper.getAllActivities() {
+            options.append(.init(name: activity.name, value: activity, isSelected: item.activities.contains(activity)))
+        }
+        return options
+    }
+}
+
+extension ScheduleCell: SelectOptionProtocol {
+    
+    func apply<T>(options: [SelectOption], valueType: T.Type) {
+        if valueType is ActivityItem.Type {
+            var activities = [ActivityItem]()
+            for option in options {
+                if let item = option.value as? ActivityItem {
+                    activities.append(item)
+                }
+            }
+            
+            item.activities = activities
+        }
+    }
 }
 
 struct ScheduleCell_Previews: PreviewProvider {

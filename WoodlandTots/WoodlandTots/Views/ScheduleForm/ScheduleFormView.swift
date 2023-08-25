@@ -14,9 +14,7 @@ struct ScheduleFormView: View {
     
     @State private var scheduleDate = Date.now
     @State private var selectedChild: ChildItem = .init()
-    @State private var selectedActivities: [ActivityItem] = [.init()]
     @State private var childText: String = "No child selected"
-    @State private var activityText: String = "0 activities selected"
     
     var body: some View {
         return NavigationStack() {
@@ -55,35 +53,9 @@ struct ScheduleFormView: View {
                                 }
                             }
                             
-                            HStack {
-                                Text("Activity:")
-                                    .padding(.trailing, 10)
-                                Spacer()
-                                NavigationLink {
-                                    SelectOptionView<ActivityItem>(viewModel: .init(type: .multi, options: self.viewModel.activityOptions, valueType: ActivityItem.self), delegate: self)
-                                } label: {
-                                    HStack {
-                                        Spacer()
-                                        Text(activityText)
-                                        .onAppear() {
-                                            if !self.viewModel.model.activities.isEmpty {
-                                                self.activityText = "\(self.viewModel.model.activities.count) activit\(self.viewModel.model.activities.count > 1 ? "ies" : "y") selected"
-                                            }
-                                        }
-                                        Image("right_arrow")
-                                    }
-                                    .padding(.vertical, 5)
-                                    .overlay(
-                                        RoundedRectangle(cornerRadius: 8)
-                                            .stroke(.black, lineWidth: 1)
-                                    )
-                                }
-                            }
-                            
                             Button() {
                                 self.viewModel.model.date = self.scheduleDate
                                 self.viewModel.model.child = self.selectedChild
-                                self.viewModel.model.activities = self.selectedActivities
                                 
                                 switch self.viewModel.mode {
                                 case .add:
@@ -132,16 +104,6 @@ extension ScheduleFormView: SelectOptionProtocol {
                 
                 self.childText = child.name
             }
-        } else if valueType is ActivityItem.Type {
-            var activities = [ActivityItem]()
-            for option in options {
-                if let item = option.value as? ActivityItem {
-                    activities.append(item)
-                }
-            }
-            self.selectedActivities = activities
-            self.viewModel.model.activities = activities
-            self.activityText = "\(activities.count) activit\(activities.count > 1 ? "ies" : "y") selected"
         }
     }
 }
