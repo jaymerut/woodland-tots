@@ -28,7 +28,7 @@ struct ScheduleCell: View {
                     .frame(width: 0, height: 0)
                     .hidden()
             
-            NavigationLink(destination: ScheduleFormView(viewModel: .init(model: item, delegate: self.delegate, mode: .edit)), isActive: $isPresentingMeals) {}
+            NavigationLink(destination: AddMealsView(viewModel: .init()), isActive: $isPresentingMeals) {}
                     .frame(width: 0, height: 0)
                     .hidden()
             
