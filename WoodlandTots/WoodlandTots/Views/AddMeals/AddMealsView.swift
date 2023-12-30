@@ -11,6 +11,7 @@ struct AddMealsView: View {
 
     @Environment(\.dismiss) private var dismiss
     @ObservedObject var viewModel: ViewModel
+    var delegate: AddMealsProtocol
     
     @State private var scheduleDate = Date.now
     @State private var selectedChild: ChildItem = .init()
@@ -40,7 +41,7 @@ struct AddMealsView: View {
                                 } label: {
                                     HStack {
                                         Spacer()
-                                        Text(selectedMeal.rawValue)
+                                        Text(selectedMeal.getDisplayName())
                                         Image("right_arrow")
                                     }
                                     .padding(.vertical, 5)
@@ -64,7 +65,7 @@ struct AddMealsView: View {
                                 .frame(minHeight: 200)
                             
                             Button() {
-                                
+                                self.delegate.add(meal: MealItem.init(mealType: self.selectedMeal, note: self.note))
                                 dismiss()
                             } label: {
                                 Text("Save and Add")
@@ -93,12 +94,12 @@ struct AddMealsView: View {
     
     private func getMealOptions() -> [SelectOption] {
         return [
-            .init(name: MealType.breakfast.rawValue, value: MealType.breakfast, isSelected: MealType.breakfast == self.selectedMeal),
-            .init(name: MealType.snackAM.rawValue, value: MealType.snackAM, isSelected: MealType.snackAM == self.selectedMeal),
-            .init(name: MealType.lunch.rawValue, value: MealType.lunch, isSelected: MealType.lunch == self.selectedMeal),
-            .init(name: MealType.snackPM.rawValue, value: MealType.snackPM, isSelected: MealType.snackPM == self.selectedMeal),
-            .init(name: MealType.snackLate.rawValue, value: MealType.snackLate, isSelected: MealType.snackLate == self.selectedMeal),
-            .init(name: MealType.dinner.rawValue, value: MealType.dinner, isSelected: MealType.dinner == self.selectedMeal)
+            .init(name: MealType.breakfast.getDisplayName(), value: MealType.breakfast, isSelected: MealType.breakfast == self.selectedMeal),
+            .init(name: MealType.snackAM.getDisplayName(), value: MealType.snackAM, isSelected: MealType.snackAM == self.selectedMeal),
+            .init(name: MealType.lunch.getDisplayName(), value: MealType.lunch, isSelected: MealType.lunch == self.selectedMeal),
+            .init(name: MealType.snackPM.getDisplayName(), value: MealType.snackPM, isSelected: MealType.snackPM == self.selectedMeal),
+            .init(name: MealType.snackLate.getDisplayName(), value: MealType.snackLate, isSelected: MealType.snackLate == self.selectedMeal),
+            .init(name: MealType.dinner.getDisplayName(), value: MealType.dinner, isSelected: MealType.dinner == self.selectedMeal)
         ]
     }
 }

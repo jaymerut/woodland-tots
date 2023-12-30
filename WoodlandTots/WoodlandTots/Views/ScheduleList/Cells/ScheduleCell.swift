@@ -28,7 +28,7 @@ struct ScheduleCell: View {
                     .frame(width: 0, height: 0)
                     .hidden()
             
-            NavigationLink(destination: AddMealsView(viewModel: .init()), isActive: $isPresentingMeals) {}
+            NavigationLink(destination: AddMealsView(viewModel: .init(), delegate: self), isActive: $isPresentingMeals) {}
                     .frame(width: 0, height: 0)
                     .hidden()
             
@@ -158,9 +158,22 @@ extension ScheduleCell: SelectOptionProtocol {
             }
             
             item.activities = activities
+            self.delegate.editSchedule(schedule: item)
         }
     }
 }
+
+extension ScheduleCell: AddMealsProtocol {
+    
+    func add(meal: MealItem) {
+        item.meals.removeAll(where: { $0.mealType == meal.mealType})
+
+        item.meals.append(meal)
+        item.meals = item.meals.sorted(by: {$0.mealType.rawValue < $1.mealType.rawValue})
+        self.delegate.editSchedule(schedule: item)
+    }
+}
+
 
 struct ScheduleCell_Previews: PreviewProvider {
     static var previews: some View {
@@ -186,6 +199,12 @@ struct ScheduleCell_Previews: PreviewProvider {
                     name: "Test Me Activity 2",
                     categoryType: .language,
                     description: "Test 2"
+                )
+            ], 
+            meals: [
+                .init(
+                    mealType: .breakfast,
+                    note: "test"
                 )
             ]
         ), delegate: ScheduleView(viewModel: .init()))

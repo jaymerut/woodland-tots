@@ -90,6 +90,10 @@ struct ScheduleListView_Previews: PreviewProvider {
                                 categoryType: .language,
                                 description: "Test 2"
                             )
+                        ], meals: [
+                            .init(
+                                mealType: .breakfast, note: "Test"
+                            )
                         ]
                     )
                 ]

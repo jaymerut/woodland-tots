@@ -9,6 +9,6 @@ import Foundation
 
 extension AddMealsView {
     class ViewModel: ObservableObject {
-        
+
     }
 }
