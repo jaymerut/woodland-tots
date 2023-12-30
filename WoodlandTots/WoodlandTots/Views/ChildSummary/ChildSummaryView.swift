@@ -24,7 +24,7 @@ struct ChildSummaryView: View {
             
             Text("Activities")
                 .font(FontHelper.fontHelvetica(24))
-                .foregroundColor(.blue)
+                .foregroundColor(.orange)
                 .multilineTextAlignment(.leading)
                 .frame(maxWidth: .infinity, alignment: .leading)
                 .padding(.top, 20)
@@ -35,6 +35,26 @@ struct ChildSummaryView: View {
                     .frame(maxWidth: .infinity, alignment: .leading)
                     .padding(.top, 5)
                 Text(item.description)
+                    .font(FontHelper.fontHelvetica(14))
+                    .multilineTextAlignment(.leading)
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                    .padding(.top, 1)
+            }
+            .padding(.leading, 10)
+            
+            Text("Meals")
+                .font(FontHelper.fontHelvetica(24))
+                .foregroundColor(.green)
+                .multilineTextAlignment(.leading)
+                .frame(maxWidth: .infinity, alignment: .leading)
+                .padding(.top, 20)
+            ForEach(viewModel.schedule.meals) { item in
+                Text(item.mealType.getDisplayName())
+                    .font(FontHelper.fontHelveticaBold(18))
+                    .multilineTextAlignment(.leading)
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                    .padding(.top, 5)
+                Text(item.note)
                     .font(FontHelper.fontHelvetica(14))
                     .multilineTextAlignment(.leading)
                     .frame(maxWidth: .infinity, alignment: .leading)
@@ -72,6 +92,6 @@ struct ChildSummaryView: View {
 
 struct ChildSummaryView_Previews: PreviewProvider {
     static var previews: some View {
-        ChildSummaryView(viewModel: .init(schedule: .init(id: UUID().uuidString, date: .now, child: .init(id: UUID().uuidString, name: "Test Child", age: 5, ageUnits: .years, note: ""), activities: [.init(id: UUID().uuidString, name: "Test Activity", categoryType: .art, description: "Learned how to count to 10.")])))
+        ChildSummaryView(viewModel: .init(schedule: .init(id: UUID().uuidString, date: .now, child: .init(id: UUID().uuidString, name: "Test Child", age: 5, ageUnits: .years, note: ""), activities: [.init(id: UUID().uuidString, name: "Test Activity", categoryType: .art, description: "Learned how to count to 10.")], meals: [.init(mealType: .breakfast, note: "Note")])))
     }
 }

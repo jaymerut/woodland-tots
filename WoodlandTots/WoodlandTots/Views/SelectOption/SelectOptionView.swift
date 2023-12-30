@@ -61,9 +61,9 @@ struct SelectOptionView<T>: View {
                 .opacity(self.isSingleSelect ? 0 : 1)
                 
             }
-            .navigationTitle("Select an Option")
-            .navigationBarTitleDisplayMode(.inline)
         }
+        .navigationTitle("Select an Option")
+        .navigationBarTitleDisplayMode(.inline)
         .onAppear() {
             if !self.isApplied {
                 self.viewModel.options = self.viewModel.oldOptions

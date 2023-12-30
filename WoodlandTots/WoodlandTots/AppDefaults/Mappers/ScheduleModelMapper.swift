@@ -12,7 +12,7 @@ class ScheduleModelMapper {
         var result = [ScheduleModel]()
         
         for item in models {
-            result.append(.init(id: item.id, date: item.date, child: ChildModelMapper.convertChildItemToChildModels(models: [item.child]).first ?? .init(), activities: ActivityModelMapper.convertActivityItemToActivityModels(models: item.activities)))
+            result.append(.init(id: item.id, date: item.date, child: ChildModelMapper.convertChildItemToChildModels(models: [item.child]).first ?? .init(), activities: ActivityModelMapper.convertActivityItemToActivityModels(models: item.activities), meals: MealModelMapper.convertMealItemToMealModels(models: item.meals)))
         }
         
         return result
@@ -21,7 +21,7 @@ class ScheduleModelMapper {
         var result = [ScheduleItem]()
         
         for item in models {
-            result.append(.init(id: item.id, date: item.date, child: ChildModelMapper.convertChildModelsToChildItems(models: [item.child]).first ?? .init(), activities: ActivityModelMapper.convertActivityModelsToActivityItems(models: item.activities)))
+            result.append(.init(id: item.id, date: item.date, child: ChildModelMapper.convertChildModelsToChildItems(models: [item.child]).first ?? .init(), activities: ActivityModelMapper.convertActivityModelsToActivityItems(models: item.activities), meals: MealModelMapper.convertMealModelsToMealItems(models: item.meals)))
         }
         
         return result

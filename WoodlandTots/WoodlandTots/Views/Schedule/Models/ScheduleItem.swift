@@ -13,15 +13,17 @@ class ScheduleItem: ObservableObject, Identifiable {
     var date: Date = Date()
     var child: ChildItem = ChildItem()
     var activities: [ActivityItem] = [ActivityItem]()
+    var meals: [MealItem] = [MealItem]()
     
     init() {
         
     }
     
-    init(id: String, date: Date, child: ChildItem, activities: [ActivityItem]) {
+    init(id: String, date: Date, child: ChildItem, activities: [ActivityItem], meals: [MealItem]) {
         self.id = id
         self.date = date
         self.child = child
         self.activities = activities
+        self.meals = meals
     }
 }
